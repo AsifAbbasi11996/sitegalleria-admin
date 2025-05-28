@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { uploadSlider, getSliders } from "../api/api";
-import { CloudUpload, Plus } from "lucide-react";
+import { CloudUpload } from "lucide-react";
 
 export default function SliderManager() {
   const [image, setImage] = useState(null);
