@@ -8,7 +8,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   const location = useLocation();
-  const isLoginPage = location.pathname === '/login';
+  const isLoginPage = location.pathname === '/';
 
   return (
     <div className="flex">
@@ -17,7 +17,7 @@ function App() {
         {!isLoginPage && <Navbar />}
         <main className="p-6">
           <Routes>
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
             <Route
               path="/slider"
               element={

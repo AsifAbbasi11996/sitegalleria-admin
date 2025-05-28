@@ -6,7 +6,7 @@ export default function Navbar() {
 
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
-    window.location.href = "/login";
+    window.location.href = "/";
   };
 
   return (
