@@ -9,6 +9,6 @@ export const uploadSlider = (formData) =>
 export const getSliders = () => axios.get(`${API_URL}/slider`);
 
 export const addDestination = (data) =>
-  axios.post(`${API_URL}/hotel/add`, data);
+  axios.post(`${API_URL}/destination/add`, data);
 
-export const getDestinations = () => axios.get(`${API_URL}/hotel`);
+export const getDestinations = () => axios.get(`${API_URL}/destination`);

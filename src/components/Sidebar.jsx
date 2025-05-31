@@ -9,6 +9,7 @@ export default function Sidebar() {
   const navLinks = [
     { path: '/slider', label: 'Slider' },
     { path: '/destinations', label: 'Destinations' },
+    { path: '/hotels', label: 'Hotels' },
   ];
 
   return (
