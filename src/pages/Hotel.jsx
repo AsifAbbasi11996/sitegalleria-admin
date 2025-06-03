@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getAllHotels } from "../api/hotelApi";
+import { deleteHotel, getAllHotels } from "../api/hotelApi";
+import { Pencil, Trash2 } from "lucide-react";
 
 const Hotel = () => {
   const [hotels, setHotels] = useState([]);
@@ -10,7 +11,7 @@ const Hotel = () => {
     try {
       const res = await getAllHotels();
       setHotels(res.data); // ✅ FIX: access the actual data
-      console.log(res.data)
+      console.log(res.data);
     } catch (error) {
       console.error("Failed to fetch hotels:", error);
     }
@@ -20,6 +21,13 @@ const Hotel = () => {
     fetchHotels();
   }, []);
 
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this hotel?")) {
+      await deleteHotel(id);
+      fetchHotels();
+    }
+  };
+
   return (
     <div className="max-w-7xl mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
@@ -28,7 +36,7 @@ const Hotel = () => {
           onClick={() => navigate("/admin/hotels/add")}
           className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
         >
-          + Add Hotel
+          Add Hotel
         </button>
       </div>
 
@@ -65,20 +73,30 @@ const Hotel = () => {
                     />
                   )}
                   <h2 className="text-xl font-semibold">
-                    {hotel.content?.description?.slice(0, 30) || "No Description"}
+                    {hotel.content?.description?.slice(0, 30) ||
+                      "No Description"}
                   </h2>
                 </div>
 
                 <p className="text-gray-600 text-sm">
-                  {hotel.content?.description?.slice(0, 100) || "No content available"}
+                  {hotel.content?.description?.slice(0, 100) ||
+                    "No content available"}
                 </p>
 
-                <button
-                  onClick={() => navigate(`/admin/hotels/edit/${hotel._id}`)}
-                  className="mt-2 bg-green-500 text-white px-4 py-1.5 rounded hover:bg-green-600"
-                >
-                  Edit Hotel
-                </button>
+                <div>
+                  <button
+                    onClick={() => navigate(`/admin/hotels/edit/${hotel._id}`)}
+                    className="mr-5 mt-2 bg-green-500 text-white px-4 py-1.5 rounded hover:bg-green-600"
+                  >
+                    <Pencil size={18} />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(hotel._id)}
+                    className="mt-2 bg-red-700 text-white px-4 py-1.5 rounded"
+                  >
+                    <Trash2 size={18} />
+                  </button>
+                </div>
               </div>
             </div>
           ))}

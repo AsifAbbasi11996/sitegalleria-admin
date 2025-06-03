@@ -26,5 +26,5 @@ export const updateHotel = (id, formData) => {
 };
 
 export const deleteHotel = (id) => {
-  return axios.delete(`${API_URL}/hotel/delete/${id}`);
+  return axios.delete(`${API_URL}/hotel/del/${id}`);
 };

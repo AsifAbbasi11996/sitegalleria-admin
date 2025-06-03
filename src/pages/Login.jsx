@@ -20,7 +20,7 @@ export default function Login() {
     // Replace this logic with real backend call
     if (emailOrUsername === "admin" && password === "admin123") {
       localStorage.setItem("isLoggedIn", "true");
-      navigate("/slider");
+      navigate("/home-slider");
     } else {
       setError("Invalid credentials");
     }
