@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteHotel, getAllHotels } from "../api/hotelApi";
-import { Pencil, Trash2 } from "lucide-react";
+import { HiPencil } from "react-icons/hi2";
+import { MdDelete } from "react-icons/md";
 
 const Hotel = () => {
   const [hotels, setHotels] = useState([]);
@@ -83,18 +84,18 @@ const Hotel = () => {
                     "No content available"}
                 </p>
 
-                <div>
+                <div className="flex gap-2">
                   <button
                     onClick={() => navigate(`/admin/hotels/edit/${hotel._id}`)}
-                    className="mr-5 mt-2 bg-green-500 text-white px-4 py-1.5 rounded hover:bg-green-600"
+                    className="bg-green-100 text-green-500 hover:text-green-700 p-2 rounded-md cursor-pointer"
                   >
-                    <Pencil size={18} />
+                    <HiPencil size={20} />
                   </button>
                   <button
                     onClick={() => handleDelete(hotel._id)}
-                    className="mt-2 bg-red-700 text-white px-4 py-1.5 rounded"
+                    className="bg-red-100 text-red-500 hover:text-red-700 p-2 rounded-md cursor-pointer"
                   >
-                    <Trash2 size={18} />
+                    <MdDelete size={20} />
                   </button>
                 </div>
               </div>

@@ -5,7 +5,8 @@ import {
   updateDestination,
   deleteDestination,
 } from "../api/api";
-import { Pencil, Trash2 } from "lucide-react";
+import { HiPencil } from "react-icons/hi2";
+import { MdDelete } from "react-icons/md";
 
 export default function LocationManager() {
   const [name, setName] = useState("");
@@ -81,7 +82,7 @@ export default function LocationManager() {
         />
         <button
           type="submit"
-          className="px-4 py-2 bg-green-600 text-white rounded h-12"
+          className="px-4 py-2 bg-blue-600 text-white rounded h-12"
         >
           {editId ? "Update Location" : "Add Location"}
         </button>
@@ -99,11 +100,11 @@ export default function LocationManager() {
           >
             <span className="font-medium">{d.destinationName}</span>
             <div className="flex gap-2">
-              <button onClick={() => handleEdit(d)} className="text-blue-500 hover:text-blue-700">
-                <Pencil size={18} />
+              <button onClick={() => handleEdit(d)} className="text-green-500 hover:text-green-700 bg-green-100 p-2 rounded-md cursor-pointer">
+                <HiPencil size={18} />
               </button>
-              <button onClick={() => handleDelete(d._id)} className="text-red-500 hover:text-red-700">
-                <Trash2 size={18} />
+              <button onClick={() => handleDelete(d._id)} className="text-red-500 hover:text-red-700 bg-red-100 p-2 rounded-md cursor-pointer">
+                <MdDelete size={18} />
               </button>
             </div>
           </li>

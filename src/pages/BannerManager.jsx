@@ -5,7 +5,9 @@ import {
   updateBanner,
   deleteBanner,
 } from "../api/homeApi";
-import { CloudUpload, Pencil, Trash2 } from "lucide-react";
+import { CloudUpload } from "lucide-react";
+import { HiPencil } from "react-icons/hi2";
+import { MdDelete } from "react-icons/md";
 
 const BannerManager = () => {
   const [heading, setHeading] = useState("");
@@ -167,17 +169,17 @@ const BannerManager = () => {
             <div className="flex gap-4 mt-3">
               <button
                 onClick={() => handleEdit(banner)}
-                className="text-blue-600 hover:text-blue-800 transition"
+                className="text-green-500 hover:text-green-700 bg-green-100 p-2 rounded-md cursor-pointer transition"
                 title="Edit"
               >
-                <Pencil size={20} />
+                <HiPencil size={20} />
               </button>
               <button
                 onClick={() => handleDelete(banner._id)}
-                className="text-red-600 hover:text-red-800 transition"
+                className="text-red-500 hover:text-red-700 bg-red-100 p-2 rounded-md cursor-pointer transition"
                 title="Delete"
               >
-                <Trash2 size={20} />
+                <MdDelete size={20} />
               </button>
             </div>
           </div>

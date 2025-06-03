@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { uploadSlider, getSliders, updateSlider, deleteSlider } from "../api/api";
-import { CloudUpload, Trash2, Pencil } from "lucide-react";
+import { CloudUpload} from "lucide-react";
+import { HiPencil } from "react-icons/hi2";
+import { MdDelete } from "react-icons/md";
 
 export default function SliderManager() {
   const [image, setImage] = useState(null);
@@ -185,18 +187,18 @@ export default function SliderManager() {
               className="w-full h-40 object-contain mt-2 bg-black/60"
             />
 
-            <div className="absolute top-2 right-2 flex gap-2">
+            <div className="mt-2 flex gap-2">
               <button
                 onClick={() => handleEdit(slider)}
-                className="bg-yellow-500 p-1 rounded text-white"
+                className="text-green-500 hover:text-green-700 bg-green-100 p-2 rounded-md cursor-pointer"
               >
-                <Pencil size={18} />
+                <HiPencil size={20} />
               </button>
               <button
                 onClick={() => handleDelete(slider._id)}
-                className="bg-red-600 p-1 rounded text-white"
+                className="text-red-500 hover:text-red-700 bg-red-100 p-2 rounded-md cursor-pointer"
               >
-                <Trash2 size={18} />
+                <MdDelete size={20} />
               </button>
             </div>
           </div>

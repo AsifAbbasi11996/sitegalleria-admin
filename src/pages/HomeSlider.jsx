@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { CloudUpload, Trash2, Pencil } from "lucide-react";
+import { CloudUpload } from "lucide-react";
+import { HiPencil } from "react-icons/hi2";
+import { MdDelete } from "react-icons/md";
 import {
   getAllSlider,
   addSlider,
@@ -154,7 +156,7 @@ const HomeSlider = () => {
         </p>
       )}
 
-      <div className="mt-6 grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
+      <div className="mt-6 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-4">
         {sliders.map((slider) => (
           <div key={slider._id} className="border p-3 rounded relative">
             <img
@@ -165,18 +167,18 @@ const HomeSlider = () => {
             {slider.text && (
               <p className="mt-2 text-sm font-medium">{slider.text}</p>
             )}
-            <div className="absolute top-2 right-2 flex gap-2">
+            <div className="mt-2 flex gap-2">
               <button
                 onClick={() => handleEdit(slider)}
-                className="text-blue-500 hover:text-blue-700"
+                className="text-green-500 hover:text-green-700 bg-green-100 p-2 rounded-md cursor-pointer"
               >
-                <Pencil size={20} />
+                <HiPencil size={20} />
               </button>
               <button
                 onClick={() => handleDelete(slider._id)}
-                className="text-red-500 hover:text-red-700"
+                className="text-red-500 hover:text-red-700 bg-red-100 p-2 rounded-md cursor-pointer"
               >
-                <Trash2 size={20} />
+                <MdDelete size={20}/>
               </button>
             </div>
           </div>
