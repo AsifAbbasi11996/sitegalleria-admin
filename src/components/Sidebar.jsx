@@ -24,15 +24,21 @@ export default function Sidebar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleLinkClick = () => {
+    if (isMobile) {
+      setOpen(false);
+    }
+  };
+
   return (
-    <div className="flex">
+    <div className="flex h-screen sticky top-0 z-50">
       {/* Menu toggle button (visible only on mobile) */}
       {isMobile && (
         <button
           onClick={() => setOpen(!open)}
-          className="fixed top-4 left-4 z-50 bg-gray-900 text-white p-2 rounded-md md:hidden"
+          className="fixed top-6 left-4 z-50 bg-gray-900 text-white p-2 rounded-md md:hidden"
         >
-          {open ? <X size={20} /> : <Menu size={20} />}
+          {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       )}
 
@@ -41,27 +47,33 @@ export default function Sidebar() {
         className={`
           fixed top-0 left-0 h-full bg-gray-900 text-white p-4 z-40 transition-all duration-300 ease-in-out
           ${open ? "translate-x-0" : "-translate-x-full"}
-          ${isMobile ? "w-64" : "w-64 md:relative md:translate-x-0"}
+          ${isMobile ? "w-64" : "lg:w-64 md:w-52 md:relative md:translate-x-0"}
         `}
       >
         <div className="flex justify-between items-center mb-6">
-          <h1 className={`text-xl font-bold`}>Admin</h1>
+          <h1 className={`text-xl font-bold ml-20 mt-3 md:mt-0 md:ml-0`}>
+            Admin
+          </h1>
           {!isMobile && (
             <button
               onClick={() => setOpen(!open)}
               className="text-white focus:outline-none"
             >
-              {open ? <X size={20} className="md:hidden" /> : <Menu size={20} />}
+              {open ? (
+                <X size={20} className="md:hidden" />
+              ) : (
+                <Menu size={20} />
+              )}
             </button>
           )}
         </div>
 
-        <nav className="space-y-2 md:text-base text-sm">
+        <nav className="space-y-2 lg:text-base text-sm">
           {/* Home Pages Dropdown */}
           <div>
             <button
               onClick={() => setHomeDropdownOpen(!homeDropdownOpen)}
-              className={`w-full flex justify-between items-center py-2 px-4 rounded transition duration-200 ${
+              className={`w-full flex justify-between items-center py-2 px-4 mb-5 rounded transition duration-200 ${
                 location.pathname.startsWith("/homepage")
                   ? "bg-blue-600"
                   : "hover:bg-gray-700"
@@ -75,9 +87,10 @@ export default function Sidebar() {
               )}
             </button>
             {homeDropdownOpen && (
-              <div className="ml-4 space-y-1 mt-1">
+              <div className="ml-4 space-y-3 mt-1">
                 <Link
                   to="/homepage/home-slider"
+                  onClick={handleLinkClick}
                   className={`block py-1 px-3 rounded transition duration-200 ${
                     location.pathname === "/homepage/home-slider"
                       ? "bg-blue-600"
@@ -88,6 +101,7 @@ export default function Sidebar() {
                 </Link>
                 <Link
                   to="/homepage/locations"
+                  onClick={handleLinkClick}
                   className={`block py-1 px-3 rounded transition duration-200 ${
                     location.pathname === "/homepage/locations"
                       ? "bg-blue-600"
@@ -98,6 +112,7 @@ export default function Sidebar() {
                 </Link>
                 <Link
                   to="/homepage/famous-hotel-slider"
+                  onClick={handleLinkClick}
                   className={`block py-1 px-3 rounded transition duration-200 ${
                     location.pathname === "/homepage/famous-hotel-slider"
                       ? "bg-blue-600"
@@ -108,6 +123,7 @@ export default function Sidebar() {
                 </Link>
                 <Link
                   to="/homepage/hotels"
+                  onClick={handleLinkClick}
                   className={`block py-1 px-3 rounded transition duration-200 ${
                     location.pathname === "/homepage/hotels"
                       ? "bg-blue-600"
@@ -118,6 +134,7 @@ export default function Sidebar() {
                 </Link>
                 <Link
                   to="/homepage/banner"
+                  onClick={handleLinkClick}
                   className={`block py-1 px-3 rounded transition duration-200 ${
                     location.pathname === "/homepage/banner"
                       ? "bg-blue-600"
@@ -133,6 +150,7 @@ export default function Sidebar() {
           {/* Other Links */}
           <Link
             to="/rooms"
+            onClick={handleLinkClick}
             className={`block py-2 px-4 rounded transition duration-200 ${
               location.pathname === "/rooms"
                 ? "bg-blue-600"

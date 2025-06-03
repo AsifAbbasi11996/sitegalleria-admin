@@ -87,8 +87,8 @@ const BannerManager = () => {
   };
 
   return (
-    <div className="p-6 max-w-screen-xl mx-auto">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">
+    <div className="md:p-6 max-w-screen-xl mx-auto">
+      <h2 className="md:text-2xl text-xl font-bold md:mb-6 mb-3 text-gray-800">
         Manage Home Banners
       </h2>
 
@@ -96,20 +96,20 @@ const BannerManager = () => {
         onSubmit={handleSubmit}
         className="grid lg:grid-cols-3 sm:grid-cols-1 gap-6 mb-8 items-start"
       >
-        <div className="col-span-2">
+        <div className="md:col-span-2">
           <input
             type="text"
             placeholder="Heading"
             value={heading}
             onChange={(e) => setHeading(e.target.value)}
-            className="border p-3 w-full rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="md:text-base text-sm border border-[#e4e4e4] p-3 w-full rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <textarea
             placeholder="Description"
             value={desc}
             onChange={(e) => setDesc(e.target.value)}
             rows={4}
-            className="border p-3 w-full rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="md:text-base text-sm border border-[#e4e4e4] p-3 w-full rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -155,7 +155,7 @@ const BannerManager = () => {
         {banners.map((banner) => (
           <div
             key={banner._id}
-            className="border p-4 rounded shadow-sm bg-white hover:shadow-md transition"
+            className="borde border-[#e4e4e4]r p-4 rounded shadow-sm bg-white hover:shadow-md transition"
           >
             <img
               src={banner.bgImage}

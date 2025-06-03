@@ -30,12 +30,12 @@ const Hotel = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto md:p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Hotels</h1>
+        <h1 className="md:text-2xl text-xl font-bold">Hotels</h1>
         <button
-          onClick={() => navigate("/admin/hotels/add")}
-          className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+          onClick={() => navigate("/homepage/hotels/add")}
+          className="bg-blue-600 text-white px-6 py-2 md:text-base text-sm rounded hover:bg-blue-700"
         >
           Add Hotel
         </button>
@@ -70,23 +70,18 @@ const Hotel = () => {
                     <img
                       src={hotel.content.logo}
                       alt="Logo"
-                      className="w-10 h-10 object-cover rounded-full border invert"
+                      className="w-20 h-20 object-cover rounded-full border invert"
                     />
                   )}
-                  <h2 className="text-xl font-semibold">
-                    {hotel.content?.description?.slice(0, 30) ||
+                  <h2 className="md:text-base text-sm line-clamp-5">
+                    {hotel.content?.description ||
                       "No Description"}
                   </h2>
                 </div>
 
-                <p className="text-gray-600 text-sm">
-                  {hotel.content?.description?.slice(0, 100) ||
-                    "No content available"}
-                </p>
-
                 <div className="flex gap-2">
                   <button
-                    onClick={() => navigate(`/admin/hotels/edit/${hotel._id}`)}
+                    onClick={() => navigate(`/homepage/hotels/edit/${hotel._id}`)}
                     className="bg-green-100 text-green-500 hover:text-green-700 p-2 rounded-md cursor-pointer"
                   >
                     <HiPencil size={20} />

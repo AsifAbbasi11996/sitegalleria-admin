@@ -88,7 +88,7 @@ export default function SliderManager() {
   };
 
   return (
-    <div className="p-6 py-2">
+    <div className="md:p-6 p-0 py-2">
       <h1 className="text-xl font-bold mb-4">Manage Slider Images</h1>
 
       <form
@@ -97,7 +97,7 @@ export default function SliderManager() {
       >
         <label
           htmlFor="firstImage"
-          className="text-[#b2b2b2] border-[3px] border-dashed border-[#e1e1e1] p-3 rounded-md cursor-pointer w-52 h-52 flex items-center justify-center flex-col transition hover:border-blue-500"
+          className="text-[#b2b2b2] border-[3px] border-dashed border-[#e1e1e1] p-3 rounded-md cursor-pointer md:w-52 md:h-52 w-40 h-40 flex items-center justify-center flex-col transition hover:border-blue-500"
         >
           {preview1 ? (
             <img
@@ -108,8 +108,8 @@ export default function SliderManager() {
           ) : (
             <>
               <CloudUpload size={30} className="text-blue-500 mb-2" />
-              <p>Upload first image</p>
-              <p className="uppercase text-[12px]">svg, png, jpeg, webp, avif</p>
+              <p className="md:text-base text-xs">Upload first image</p>
+              <p className="uppercase md:text-[12px] text-[10px] text-center">svg, png, jpeg, webp, avif</p>
             </>
           )}
           <input
@@ -123,7 +123,7 @@ export default function SliderManager() {
 
         <label
           htmlFor="secondImage"
-          className="text-[#b2b2b2] border-[3px] border-dashed border-[#e1e1e1] p-3 rounded-md cursor-pointer w-52 h-52 flex items-center justify-center flex-col transition hover:border-blue-500"
+          className="text-[#b2b2b2] border-[3px] border-dashed border-[#e1e1e1] p-3 rounded-md cursor-pointer md:w-52 md:h-52 w-40 h-40 flex items-center justify-center flex-col transition hover:border-blue-500"
         >
           {preview2 ? (
             <img
@@ -134,8 +134,8 @@ export default function SliderManager() {
           ) : (
             <>
               <CloudUpload size={30} className="text-blue-500 mb-2" />
-              <p>Upload hover image</p>
-              <p className="uppercase text-[12px]">svg, png, jpeg, webp, avif</p>
+              <p className="md:text-base text-xs">Upload hover image</p>
+              <p className="uppercase md:text-[12px] text-[10px] text-center">svg, png, jpeg, webp, avif</p>
             </>
           )}
           <input
@@ -150,7 +150,7 @@ export default function SliderManager() {
         <div className="flex flex-col gap-2 items-center self-end">
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer h-12"
+            className="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer md:text-base text-sm"
           >
             {editId ? "Update Slide" : "Add this Slide"}
           </button>
@@ -170,7 +170,7 @@ export default function SliderManager() {
         <p className="text-green-600 text-center font-medium m-4">{successMsg}</p>
       )}
 
-      <div className="mt-6 grid md:grid-cols-3 grid-cols-2 gap-4">
+      <div className="mt-6 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-2 gap-4">
         {sliders.map((slider) => (
           <div
             key={slider._id}
@@ -179,12 +179,12 @@ export default function SliderManager() {
             <img
               src={slider.image}
               alt="Image"
-              className="w-full h-40 object-cover"
+              className="w-full md:h-40 h-32 object-cover"
             />
             <img
               src={slider.imageWithName}
               alt="With Name"
-              className="w-full h-40 object-contain mt-2 bg-black/60"
+              className="w-full md:h-40 h-32 object-contain mt-2 bg-black/60"
             />
 
             <div className="mt-2 flex gap-2">

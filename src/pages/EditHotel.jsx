@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getHotelById, updateHotel } from "../api/hotelApi";
+import { CloudUpload } from "lucide-react";
+import { MdDelete } from "react-icons/md";
 
 const EditHotel = () => {
   const { id } = useParams();
@@ -48,8 +50,11 @@ const EditHotel = () => {
   };
 
   const addSlide = () => {
-    if (slides.length < 5) {
-      setSlides([...slides, { title: "", desc: "", link: "", bg: null, existingBg: "" }]);
+    if (slides.length < 10) {
+      setSlides([
+        ...slides,
+        { title: "", desc: "", link: "", bg: null, existingBg: "" },
+      ]);
     }
   };
 
@@ -85,99 +90,178 @@ const EditHotel = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow rounded-lg mt-8">
-      <h2 className="text-2xl font-bold mb-6 text-center">Edit Hotel</h2>
-      <form onSubmit={handleUpdateHotel} encType="multipart/form-data" className="space-y-6">
+    <div className="max-w-4xl mx-auto md:p-6 bg-white shadow rounded-lg md:mt-8">
+      <h2 className="text-xl md:text-2xl font-bold mb-6 text-center">
+        Edit Hotel
+      </h2>
+      <form
+        onSubmit={handleUpdateHotel}
+        encType="multipart/form-data"
+        className="space-y-6"
+      >
         <div>
-          <label className="block font-medium">Description</label>
+          <label className="block font-medium mb-2">Description</label>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full border border-gray-300 rounded px-3 py-2 h-64"
+            className="w-full border border-gray-300 rounded px-3 py-2 h-64 text-sm"
           />
         </div>
 
         <div>
-          <label className="block font-medium">Logo</label>
-          {existingLogo && (
-            <img src={existingLogo} alt="Logo" className="w-24 h-24 object-cover mb-2 invert" />
-          )}
-          <input
-            type="file"
-            onChange={(e) => setLogo(e.target.files[0])}
-            className="block w-full"
-          />
+          <label className="block font-medium mb-2">Logo</label>
+          {logo ? (
+            <img
+              src={URL.createObjectURL(logo)}
+              alt="New Logo Preview"
+              className="w-24 h-24 object-cover mb-2 invert"
+            />
+          ) : existingLogo ? (
+            <img
+              src={existingLogo}
+              alt="Existing Logo"
+              className="w-24 h-24 object-cover mb-2 invert"
+            />
+          ) : null}
+
+          <div className="border-2 border-dashed border-[#e1e1e1] p-4 rounded-md">
+            <label htmlFor="logo" className="flex items-center flex-col">
+              <input
+                type="file"
+                id="logo"
+                onChange={(e) => setLogo(e.target.files[0])}
+                className="hidden w-full"
+              />
+              <CloudUpload size={32} className="text-blue-500 mb-2" />
+              <p className="text-sm font-medium">
+                Click or drag logo to upload
+              </p>
+              <p className="text-xs text-gray-400">JPEG, PNG, WEBP, AVIF</p>
+            </label>
+          </div>
         </div>
 
         <div>
-          <label className="block font-medium">Background Image</label>
-          {existingBgImage && (
-            <img src={existingBgImage} alt="Background" className="w-full h-40 object-cover mb-2" />
-          )}
-          <input
-            type="file"
-            onChange={(e) => setBgImage(e.target.files[0])}
-            className="block w-full"
-          />
+          <label className="block font-medium mb-2">Background Image</label>
+          {bgImage ? (
+            <img
+              src={URL.createObjectURL(bgImage)}
+              alt="New Background Preview"
+              className="w-full h-40 object-cover mb-2"
+            />
+          ) : existingBgImage ? (
+            <img
+              src={existingBgImage}
+              alt="Existing Background"
+              className="w-full h-40 object-cover mb-2"
+            />
+          ) : null}
+
+          <div className="border-2 border-dashed border-[#e1e1e1] p-4 rounded-md">
+            <label htmlFor="logo" className="flex items-center flex-col">
+              <input
+                type="file"
+                onChange={(e) => setBgImage(e.target.files[0])}
+                className="hidden w-full"
+              />
+              <CloudUpload size={32} className="text-blue-500 mb-2" />
+              <p className="text-sm font-medium">
+                Click or drag logo to upload
+              </p>
+              <p className="text-xs text-gray-400">JPEG, PNG, WEBP, AVIF</p>
+            </label>
+          </div>
         </div>
 
         <div>
-          <h4 className="text-lg font-semibold mb-4">Slides</h4>
+          <h4 className="text-lg font-semibold mb-2">Slides</h4>
           {slides.map((slide, index) => (
-            <div key={index} className="border border-gray-300 p-4 rounded-lg mb-4">
+            <div
+              key={index}
+              className="border border-gray-300 p-4 rounded-lg mb-4"
+            >
+              <p className="mb-2 text-center">Slide {index + 1}</p>
               <div className="mb-2">
-                <label className="block font-medium">Title</label>
+                <label className="block font-medium mb-2">Title</label>
                 <input
                   type="text"
                   value={slide.title}
-                  onChange={(e) => handleSlideChange(index, "title", e.target.value)}
-                  className="w-full border border-gray-300 rounded px-3 py-2"
+                  onChange={(e) =>
+                    handleSlideChange(index, "title", e.target.value)
+                  }
+                  className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
                 />
               </div>
 
               <div className="mb-2">
-                <label className="block font-medium">Description</label>
-                <input
+                <label className="block font-medium mb-2">Description</label>
+                <textarea
                   type="text"
                   value={slide.desc}
-                  onChange={(e) => handleSlideChange(index, "desc", e.target.value)}
-                  className="w-full border border-gray-300 rounded px-3 py-2"
+                  onChange={(e) =>
+                    handleSlideChange(index, "desc", e.target.value)
+                  }
+                  className="w-full border border-gray-300 rounded px-3 py-2 text-sm h-32"
                 />
               </div>
 
               <div className="mb-2">
-                <label className="block font-medium">Link</label>
+                <label className="block font-medium mb-2">Link</label>
                 <input
                   type="text"
                   value={slide.link}
-                  onChange={(e) => handleSlideChange(index, "link", e.target.value)}
-                  className="w-full border border-gray-300 rounded px-3 py-2"
+                  onChange={(e) =>
+                    handleSlideChange(index, "link", e.target.value)
+                  }
+                  className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
                 />
               </div>
 
               <div className="mb-2">
-                <label className="block font-medium">Slide Background</label>
-                {slide.existingBg && (
+                <label className="block font-medium mb-2">
+                  Slide Background
+                </label>
+                {slide.bg ? (
                   <img
-                    src={slide.existingBg}
-                    alt={`Slide ${index + 1}`}
+                    src={URL.createObjectURL(slide.bg)}
+                    alt={`New Slide ${index + 1} Preview`}
                     className="w-full h-32 object-cover mb-2"
                   />
-                )}
-                <input
-                  type="file"
-                  onChange={(e) => handleSlideChange(index, "bg", e.target.files[0])}
-                  className="block w-full"
-                />
+                ) : slide.existingBg ? (
+                  <img
+                    src={slide.existingBg}
+                    alt={`Existing Slide ${index + 1}`}
+                    className="w-full h-32 object-cover mb-2"
+                  />
+                ) : null}
+
+                <div className="border-2 border-dashed border-[#e1e1e1] p-4 rounded-md">
+                  <label htmlFor="logo" className="flex items-center flex-col">
+                    <input
+                      type="file"
+                      onChange={(e) =>
+                        handleSlideChange(index, "bg", e.target.files[0])
+                      }
+                      className="hidden w-full"
+                    />
+                    <CloudUpload size={32} className="text-blue-500 mb-2" />
+                    <p className="text-sm font-medium">
+                      Click or drag logo to upload
+                    </p>
+                    <p className="text-xs text-gray-400">
+                      JPEG, PNG, WEBP, AVIF
+                    </p>
+                  </label>
+                </div>
               </div>
 
               {slides.length > 1 && (
                 <button
                   type="button"
                   onClick={() => removeSlide(index)}
-                  className="mt-2 text-red-600 hover:underline"
+                  className="mt-2 text-red-600 bg-red-100 underline p-2 rounded-md"
                 >
-                  Remove Slide
+                  <MdDelete size={30}/>
                 </button>
               )}
             </div>
@@ -186,16 +270,16 @@ const EditHotel = () => {
             <button
               type="button"
               onClick={addSlide}
-              className="text-blue-600 hover:underline"
+              className="text-white hover:underline bg-green-800 p-3 rounded-md text-sm"
             >
-              + Add Slide
+             Click here to Add Slide
             </button>
           )}
         </div>
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+          className="w-full bg-blue-600 text-white py-4 px-4 rounded hover:bg-blue-700 transition md:text-base text-sm mb-10"
         >
           Update Hotel
         </button>

@@ -20,9 +20,9 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-gray-800 text-white p-4 flex items-center justify-between shadow">
+    <nav className="sticky top-0 z-10 bg-gray-800 text-white p-4 flex items-center md:justify-between justify-end-safe shadow">
       {/* Left: Logo */}
-      <div>
+      <div className="mr-20">
         <img src={logo} alt="Logo" className="w-auto h-[50px] object-contain" />
       </div>
 

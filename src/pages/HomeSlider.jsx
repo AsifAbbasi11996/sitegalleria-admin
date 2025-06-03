@@ -87,8 +87,8 @@ const HomeSlider = () => {
   };
 
   return (
-    <div className="p-6 py-2">
-      <h1 className="text-xl font-bold mb-4">Home Slider Manager</h1>
+    <div className="md:p-6 p-2 py-2">
+      <h1 className="md:text-xl text-lg font-bold mb-4">Home Slider Manager</h1>
 
       <form
         onSubmit={handleSubmit}
@@ -97,7 +97,7 @@ const HomeSlider = () => {
         <div>
           <label
             htmlFor="sliderImage"
-            className="text-[#b2b2b2] border-2 border-dashed border-gray-300 p-3 rounded-xl cursor-pointer w-52 h-52 flex items-center justify-center flex-col transition hover:border-blue-500"
+            className="text-[#b2b2b2] border-2 border-dashed border-gray-300 p-3 rounded-xl cursor-pointer md:w-52 md:h-52 w-40 h-40 flex items-center justify-center flex-col transition hover:border-blue-500"
           >
             {preview ? (
               <img
@@ -108,8 +108,8 @@ const HomeSlider = () => {
             ) : (
               <>
                 <CloudUpload size={30} className="text-blue-500 mb-2" />
-                <p className="text-sm mt-2">Upload Slider</p>
-                <p className="text-xs text-gray-400">jpeg, png, webp, avif</p>
+                <p className="md:text-base text-xs">Upload Slider</p>
+                 <p className="uppercase md:text-[12px] text-[10px] text-center">svg, png, jpeg, webp, avif</p>
               </>
             )}
             <input
@@ -123,7 +123,7 @@ const HomeSlider = () => {
         </div>
 
         <div className="flex flex-col items-center">
-          <div className="flex flex-col gap-2 mb-10">
+          <div className="flex flex-col gap-2 md:mb-5 mb-3">
             <label
               htmlFor="sliderText"
               className="text-sm font-medium text-gray-700"
@@ -143,7 +143,7 @@ const HomeSlider = () => {
 
         <button
           type="submit"
-          className="px-5 py-2 mt-6 md:mt-0 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl shadow transition"
+          className="px-5 py-2  bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl shadow transition"
         >
           {editId ? "Update Slide" : "Add Slide"}
         </button>
@@ -158,7 +158,7 @@ const HomeSlider = () => {
 
       <div className="mt-6 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-4">
         {sliders.map((slider) => (
-          <div key={slider._id} className="border p-3 rounded relative">
+          <div key={slider._id} className="border border-[#e4e4e4] p-3 rounded relative">
             <img
               src={slider.slider}
               alt="Slider"

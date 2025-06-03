@@ -20,7 +20,7 @@ function App() {
       {!isLoginPage && <Sidebar />}
       <div className="flex-1">
         {!isLoginPage && <Navbar />}
-        <main className="p-6">
+        <main className="md:p-6 p-3">
           <Routes>
             <Route path="/" element={<Login />} />
             <Route
@@ -56,7 +56,7 @@ function App() {
               }
             />
             <Route
-              path="/admin/hotels/add"
+              path="/homepage/hotels/add"
               element={
                 <ProtectedRoute>
                   <AddHotel />
@@ -64,7 +64,7 @@ function App() {
               }
             />
             <Route
-              path="/admin/hotels/edit/:id"
+              path="/homepage/hotels/edit/:id"
               element={
                 <ProtectedRoute>
                   <EditHotel />

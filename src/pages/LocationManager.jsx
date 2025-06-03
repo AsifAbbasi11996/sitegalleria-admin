@@ -69,8 +69,8 @@ export default function LocationManager() {
   };
 
   return (
-    <div className="p-6 py-3">
-      <h1 className="text-xl font-bold mb-4">Manage Locations</h1>
+    <div className="md:p-6 p-2 md:py-3 py-1">
+      <h1 className="md:text-xl text-lg font-bold mb-4">Manage Locations</h1>
 
       <form onSubmit={handleSubmit} className="flex gap-4 flex-wrap items-center">
         <input
@@ -82,7 +82,7 @@ export default function LocationManager() {
         />
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-600 text-white rounded h-12"
+          className="text-sm md:text-base px-4 py-2 bg-blue-600 text-white rounded md:h-12"
         >
           {editId ? "Update Location" : "Add Location"}
         </button>
@@ -96,9 +96,9 @@ export default function LocationManager() {
         {destinations.map((d) => (
           <li
             key={d._id}
-            className="p-3 border rounded flex items-center justify-between gap-3 w-64 bg-white shadow-sm"
+            className="p-3 border border-[#e4e4e4] rounded flex items-center justify-between gap-3 w-64 bg-white shadow-sm"
           >
-            <span className="font-medium">{d.destinationName}</span>
+            <span className="font-medium md:text-base text-sm">{d.destinationName}</span>
             <div className="flex gap-2">
               <button onClick={() => handleEdit(d)} className="text-green-500 hover:text-green-700 bg-green-100 p-2 rounded-md cursor-pointer">
                 <HiPencil size={18} />
