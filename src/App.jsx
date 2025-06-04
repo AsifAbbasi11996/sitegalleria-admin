@@ -10,6 +10,7 @@ import EditHotel from "./pages/EditHotel";
 import AddHotel from "./pages/AddHotel";
 import HomeSlider from "./pages/HomeSlider";
 import BannerManager from "./pages/BannerManager";
+import LogoManager from "./pages/LogoManager";
 
 function App() {
   const location = useLocation();
@@ -23,6 +24,14 @@ function App() {
         <main className="md:p-6 p-3">
           <Routes>
             <Route path="/" element={<Login />} />
+            <Route
+              path="/logo"
+              element={
+                <ProtectedRoute>
+                  <LogoManager />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/homepage/home-slider"
               element={

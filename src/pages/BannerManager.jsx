@@ -155,7 +155,7 @@ const BannerManager = () => {
         {banners.map((banner) => (
           <div
             key={banner._id}
-            className="borde border-[#e4e4e4]r p-4 rounded shadow-sm bg-white hover:shadow-md transition"
+            className="border border-[#e4e4e4] p-4 rounded shadow-sm bg-white hover:shadow-md transition"
           >
             <img
               src={banner.bgImage}
