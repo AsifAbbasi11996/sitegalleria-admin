@@ -102,12 +102,14 @@ const AddNewHotel = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-7xl mx-auto p-8 bg-white shadow-lg rounded-lg space-y-8"
+      className="max-w-7xl mx-auto lg:p-6 p-2 bg-white shadow-lg rounded-lg space-y-6"
     >
-      <h2 className="text-3xl font-bold text-center">Create New Hotel</h2>
+      <h2 className="md:text-2xl text-xl font-bold text-center">
+        Add New Hotel
+      </h2>
 
       {/* Main Info */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {[
           "hotelName",
           "address",
@@ -118,28 +120,28 @@ const AddNewHotel = () => {
           "rating",
         ].map((field) => (
           <div key={field}>
-            <label className="block text-sm font-medium text-gray-700 mb-1 capitalize">
+            <label className="font-semibold capitalize block mb-2 sm:text-base text-sm">
               {field.replace(/([A-Z])/g, " $1")}
             </label>
             <input
               name={field}
               value={formData[field]}
               onChange={handleChange}
-              className="border border-[#e2e2e2] outline-0 p-2 w-full mb-2 rounded"
+              className="border border-[#e2e2e2] outline-0 p-2 w-full mb-2 rounded sm:text-base text-sm"
             />
           </div>
         ))}
 
         {/* Destination Select */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="font-semibold capitalize block mb-2 sm:text-base text-sm">
             Destination
           </label>
           <select
             name="destination"
             value={formData.destination}
             onChange={handleChange}
-            className="border border-[#e2e2e2] outline-0 p-2 w-full mb-2 rounded"
+            className="border border-[#e2e2e2] outline-0 p-2 w-full mb-2 rounded sm:text-base text-sm"
           >
             <option value="">Select a destination</option>
             {destinations.map((d) => (
@@ -153,13 +155,13 @@ const AddNewHotel = () => {
 
       {/* Description Paragraphs as textarea */}
       <div className="space-y-2">
-        <label className="font-semibold block">Description Paragraphs:</label>
+        <label className="font-semibold block sm:text-base text-sm">Description Paragraphs:</label>
         {formData.descriptionParagraphs.map((item, idx) => (
           <div key={idx} className="flex gap-2 items-start mb-2">
             <textarea
               value={item}
               onChange={(e) => handleChange(e, "descriptionParagraphs", idx)}
-              className="border border-[#e2e2e2] outline-0 p-2 w-full rounded"
+              className="border border-[#e2e2e2] outline-0 p-2 w-full rounded sm:text-base text-sm"
               placeholder={`Enter paragraph ${idx + 1}`}
               rows={3}
             />
@@ -169,7 +171,7 @@ const AddNewHotel = () => {
                 onClick={() => removeField("descriptionParagraphs", idx)}
                 className="text-red-500 bg-red-100 font-bold p-2 rounded-md"
               >
-                <MdDelete/>
+                <MdDelete />
               </button>
             )}
           </div>
@@ -177,13 +179,13 @@ const AddNewHotel = () => {
         <button
           type="button"
           onClick={() => addField("descriptionParagraphs")}
-          className="text-blue-600 text-sm border border-blue-600 p-2 rounded-md mt-2"
+          className="text-blue-600 border border-blue-600 p-2 rounded-md mt-2 sm:text-base text-sm"
         >
           + Add Paragraph
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Other Array Fields */}
         {[
           "activities",
@@ -196,7 +198,7 @@ const AddNewHotel = () => {
           "advantages",
         ].map((field) => (
           <div key={field} className="space-y-1">
-            <label className="font-semibold capitalize block">
+            <label className="font-semibold capitalize block mb-2 sm:text-base text-sm">
               {field.replace(/([A-Z])/g, " $1")}:
             </label>
             {formData[field].map((item, idx) => (
@@ -204,7 +206,7 @@ const AddNewHotel = () => {
                 <input
                   value={item}
                   onChange={(e) => handleChange(e, field, idx)}
-                  className="border border-[#e2e2e2] outline-0 p-2 w-full rounded"
+                  className="border border-[#e2e2e2] outline-0 p-2 w-full rounded sm:text-base text-sm"
                 />
                 {formData[field].length > 1 && (
                   <button
@@ -212,7 +214,7 @@ const AddNewHotel = () => {
                     onClick={() => removeField(field, idx)}
                     className="text-red-500 font-bold bg-red-100 p-2 rounded-md"
                   >
-                    <MdDelete/>
+                    <MdDelete />
                   </button>
                 )}
               </div>
@@ -220,7 +222,7 @@ const AddNewHotel = () => {
             <button
               type="button"
               onClick={() => addField(field)}
-              className="text-blue-600 text-sm border border-blue-600 p-2 rounded-md"
+              className="text-blue-600 border border-blue-600 p-2 rounded-md sm:text-base text-sm"
             >
               + Add More
             </button>
@@ -230,7 +232,7 @@ const AddNewHotel = () => {
 
       {/* Image Upload */}
       <div>
-        <label className="font-semibold block mb-2">Hotel Images</label>
+        <label className="font-semibold block mb-2 sm:text-base text-sm">Hotel Images</label>
 
         <label
           htmlFor="imageUploadInput"
@@ -252,13 +254,13 @@ const AddNewHotel = () => {
         </label>
 
         {images.length > 0 && (
-          <div className="flex gap-3 mt-4 flex-wrap">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 mt-4">
             {images.map((img, idx) => (
               <div key={idx} className="relative">
                 <img
                   src={URL.createObjectURL(img)}
                   alt="preview"
-                  className="w-24 h-24 object-cover rounded shadow"
+                  className="w-full h-28 md:h-40 object-cover rounded shadow"
                 />
                 <button
                   type="button"
@@ -275,7 +277,7 @@ const AddNewHotel = () => {
         <button
           type="button"
           onClick={triggerImageUpload}
-          className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 text-sm rounded-md mt-4"
+          className="text-blue-600 border border-blue-600 p-2 rounded-md sm:text-base text-sm mt-3"
         >
           + Add Images
         </button>
@@ -283,7 +285,7 @@ const AddNewHotel = () => {
 
       <button
         type="submit"
-        className="w-full md:w-auto bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
+        className="w-full bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
       >
         Submit Hotel
       </button>

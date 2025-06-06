@@ -7,6 +7,7 @@ export default function Login() {
     usernameOrEmail: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false); // 👈 for checkbox
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -23,7 +24,7 @@ export default function Login() {
       // Save login state, token, and username
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("adminToken", response.data.token);
-      localStorage.setItem("adminUsername", response.data.admin.username); // ✅ Save username
+      localStorage.setItem("adminUsername", response.data.admin.username);
       navigate("/logo");
     } catch (err) {
       console.error("Login failed", err);
@@ -53,13 +54,25 @@ export default function Login() {
           <div>
             <label className="md:text-base text-sm">Password</label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"} // 👈 toggle type
               name="password"
               value={formData.password}
               onChange={handleChange}
               className="w-full p-2 border rounded mt-2"
               required
             />
+            <div className="mt-2 flex items-center">
+              <input
+                type="checkbox"
+                id="showPassword"
+                checked={showPassword}
+                onChange={() => setShowPassword(!showPassword)}
+                className="mr-2"
+              />
+              <label htmlFor="showPassword" className="text-sm">
+                Show Password
+              </label>
+            </div>
           </div>
           <button
             type="submit"

@@ -35,7 +35,7 @@ const EditNewHotel = () => {
   useEffect(() => {
     const fetchHotel = async () => {
       try {
-        const res = await getHotelById(id)
+        const res = await getHotelById(id);
         const data = res.data;
 
         setForm({
@@ -150,11 +150,11 @@ const EditNewHotel = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-7xl mx-auto p-6 bg-white shadow rounded space-y-6"
+      className="max-w-7xl mx-auto lg:p-6 p-2 bg-white shadow rounded space-y-6"
     >
-      <h2 className="text-3xl font-bold text-center">Edit Hotel</h2>
+      <h2 className="md:text-2xl text-xl font-bold text-center">Edit Hotel</h2>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
         {[
           "hotelName",
           "address",
@@ -165,7 +165,7 @@ const EditNewHotel = () => {
           "longitude",
         ].map((field) => (
           <div key={field}>
-            <label className="block text-sm font-medium text-gray-700 capitalize mb-1">
+            <label className="block font-semibold capitalize mb-2 sm:text-base text-sm">
               {field.replace(/([A-Z])/g, " $1")}
             </label>
             <input
@@ -173,19 +173,20 @@ const EditNewHotel = () => {
               value={form[field]}
               onChange={handleChange}
               placeholder={field}
-              className="w-full border border-[#e2e2e2] outline-0 p-2 rounded"
+              className="w-full border border-[#e2e2e2] outline-0 p-2 rounded sm:text-base text-sm"
             />
           </div>
         ))}
+
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="font-semibold capitalize block mb-2 sm:text-base text-sm">
             Destination
           </label>
           <select
             name="destination"
             value={form.destination}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-300 outline-0 rounded sm:text-base text-sm"
           >
             <option value="">Select a destination</option>
             {destinations.map((dest) => (
@@ -198,13 +199,13 @@ const EditNewHotel = () => {
       </div>
 
       <div className="mb-4">
-        <label className="block font-medium mb-1">Description Paragraphs</label>
+        <label className="block font-medium mb-1 sm:text-base text-sm">Description Paragraphs</label>
         {form.descriptionParagraphs.map((para, index) => (
           <div key={index} className="flex gap-2 items-start mb-2">
             <textarea
               value={para}
               onChange={(e) => handleChange(e, "descriptionParagraphs", index)}
-              className="w-full border border-gray-300 rounded p-2 outline-0"
+              className="w-full border border-gray-300 rounded p-2 outline-0 sm:text-base text-sm"
               rows={3}
             />
             {form.descriptionParagraphs.length > 1 && (
@@ -221,13 +222,13 @@ const EditNewHotel = () => {
         <button
           type="button"
           onClick={() => addField("descriptionParagraphs")}
-          className="text-sm text-blue-600 border border-blue-600 p-2 rounded-md"
+          className="text-blue-600 border border-blue-600 p-2 rounded-md sm:text-base text-sm"
         >
           + Add another paragraph
         </button>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
         {[
           "activities",
           "paymentMethods",
@@ -239,7 +240,7 @@ const EditNewHotel = () => {
           "advantages",
         ].map((field) => (
           <div key={field}>
-            <label className="block font-semibold capitalize mb-2">
+            <label className="block font-semibold capitalize mb-2 sm:text-base text-sm">
               {field.replace(/([A-Z])/g, " $1")}
             </label>
             {form[field].map((item, idx) => (
@@ -247,7 +248,7 @@ const EditNewHotel = () => {
                 <input
                   value={item}
                   onChange={(e) => handleChange(e, field, idx)}
-                  className="w-full border border-gray-300 p-2 rounded outline-0"
+                  className="w-full border border-gray-300 p-2 rounded outline-0 sm:text-base text-sm"
                   placeholder={`${field} ${idx + 1}`}
                 />
                 {form[field].length > 1 && (
@@ -264,7 +265,7 @@ const EditNewHotel = () => {
             <button
               type="button"
               onClick={() => addField(field)}
-              className="text-sm text-blue-600 border border-blue-600 p-2 rounded-md"
+              className="text-blue-600 border border-blue-600 p-2 rounded-md sm:text-base text-sm"
             >
               + Add More
             </button>
@@ -274,17 +275,17 @@ const EditNewHotel = () => {
 
       {/* Images Section */}
       <div>
-        <label className="block font-semibold mb-2">Hotel Images</label>
+        <label className="block font-semibold mb-2 sm:text-base text-sm">Hotel Images</label>
 
         {/* Existing images */}
         {existingImages.length > 0 && (
-          <div className="flex flex-wrap gap-3 mb-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 mb-4">
             {existingImages.map((img, idx) => (
               <div key={idx} className="relative">
                 <img
                   src={img}
                   alt="Existing"
-                  className="w-28 h-28 object-cover rounded shadow"
+                  className="w-full h-28 md:h-40 object-cover rounded shadow"
                 />
                 <button
                   type="button"
@@ -300,13 +301,13 @@ const EditNewHotel = () => {
 
         {/* New image preview */}
         {newImages.length > 0 && (
-          <div className="flex flex-wrap gap-3 mb-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 mb-4">
             {newImages.map((img, idx) => (
               <div key={idx} className="relative">
                 <img
                   src={URL.createObjectURL(img)}
                   alt="Preview"
-                  className="w-28 h-28 object-cover rounded shadow"
+                  className="w-28 h-28 md:h-40 object-cover rounded shadow"
                 />
                 <button
                   type="button"
