@@ -108,7 +108,7 @@ const LogoManager = () => {
           <img
             src={preview}
             alt="Logo Preview"
-            className="w-40 h-40 object-contain mx-auto mt-2 invert"
+            className="w-40 h-40 object-contain mx-auto mt-2"
           />
         )}
 
@@ -131,7 +131,7 @@ const LogoManager = () => {
             <img
               src={logo.logo}
               alt="Logo"
-              className="w-full h-36 object-contain mb-3 invert"
+              className="w-full h-36 object-contain mb-3"
             />
             <div className="flex justify-center gap-4">
               <button

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { LogOut } from "lucide-react";
-import logo from "../assets/logo.avif";
+import logo from "../../public/logo.png";
 
 export default function Navbar() {
   const [profileName, setProfileName] = useState("");
