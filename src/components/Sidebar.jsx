@@ -6,6 +6,7 @@ export default function Sidebar() {
   const location = useLocation();
   const [open, setOpen] = useState(true);
   const [homeDropdownOpen, setHomeDropdownOpen] = useState(false);
+  const [hotelDropdownOpen, setHotelDropdownOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
@@ -161,7 +162,7 @@ export default function Sidebar() {
           {/* Other Links */}
           <div>
             <button
-              onClick={() => setHomeDropdownOpen(!homeDropdownOpen)}
+              onClick={() => setHotelDropdownOpen(!hotelDropdownOpen)}
               className={`w-full flex justify-between items-center py-2 px-4 mb-2 rounded transition duration-200 ${
                 location.pathname.startsWith("/hotelpage")
                   ? "bg-blue-600"
@@ -169,18 +170,29 @@ export default function Sidebar() {
               }`}
             >
               <span>Hotels Pages</span>
-              {homeDropdownOpen ? (
+              {hotelDropdownOpen ? (
                 <ChevronDown size={16} />
               ) : (
                 <ChevronRight size={16} />
               )}
             </button>
-            {homeDropdownOpen && (
+            {hotelDropdownOpen && (
               <div className="ml-4 bg-gray-800 rounded-md">
+                <Link
+                  to="/hotelpage/all-hotels"
+                  onClick={handleLinkClick}
+                  className={`block py-2 px-3 my-2 rounded transition duration-200 ${
+                    location.pathname === "/hotelpage/all-hotels"
+                      ? "bg-blue-600"
+                      : "hover:bg-gray-700"
+                  }`}
+                >
+                  All Hotels
+                </Link>
                 <Link
                   to="/hotelpage/add-hotel"
                   onClick={handleLinkClick}
-                  className={`block py-2 px-3 rounded transition duration-200 ${
+                  className={`block py-2 px-3 my-2 rounded transition duration-200 ${
                     location.pathname === "/hotelpage/add-hotel"
                       ? "bg-blue-600"
                       : "hover:bg-gray-700"
@@ -193,7 +205,7 @@ export default function Sidebar() {
           </div>
           <Link
             to="/rooms"
-            onClick={handleLinkClick}
+            onClick={handleLinkClick} my-2
             className={`block py-2 px-4 rounded transition duration-200 ${
               location.pathname === "/rooms"
                 ? "bg-blue-600"

@@ -12,6 +12,8 @@ import HomeSlider from "./pages/HomeSlider";
 import BannerManager from "./pages/BannerManager";
 import LogoManager from "./pages/LogoManager";
 import AddNewHotel from "./pages/AddNewHotel";
+import AllHotels from "./pages/AllHotels";
+import EditNewHotel from "./pages/EditNewHotel";
 
 function App() {
   const location = useLocation();
@@ -82,10 +84,26 @@ function App() {
               }
             />
             <Route
+              path="/hotelpage/all-hotels"
+              element={
+                <ProtectedRoute>
+                  <AllHotels />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/hotelpage/add-hotel"
               element={
                 <ProtectedRoute>
                   <AddNewHotel />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/hotelpage/edit-hotel/:id"
+              element={
+                <ProtectedRoute>
+                  <EditNewHotel />
                 </ProtectedRoute>
               }
             />
