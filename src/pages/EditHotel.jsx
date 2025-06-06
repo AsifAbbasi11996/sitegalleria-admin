@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getHotelById, updateHotel } from "../api/hotelApi";
+import { getHotelById, updateHotel } from "../api/homehotelApi";
 import { CloudUpload } from "lucide-react";
 import { MdDelete } from "react-icons/md";
 

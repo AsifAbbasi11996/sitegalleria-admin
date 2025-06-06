@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { deleteHotel, getAllHotels } from "../api/hotelApi";
+import { deleteHotel, getAllHotels } from "../api/homehotelApi";
 import { HiPencil } from "react-icons/hi2";
 import { MdDelete } from "react-icons/md";
 

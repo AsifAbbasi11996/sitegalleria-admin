@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { MdClose, MdDelete } from "react-icons/md";
 import { CloudUpload } from "lucide-react";
+import { getDestinations } from "../api/api";
+import { getHotelById, updateHotel } from "../api/hotelApi";
 
 const EditNewHotel = () => {
   const { id } = useParams();
@@ -34,9 +35,7 @@ const EditNewHotel = () => {
   useEffect(() => {
     const fetchHotel = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:4000/api/hotels/get/${id}`
-        );
+        const res = await getHotelById(id)
         const data = res.data;
 
         setForm({
@@ -71,7 +70,7 @@ const EditNewHotel = () => {
   useEffect(() => {
     const fetchDestinations = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/api/home/location");
+        const res = await getDestinations();
         setDestinations(res.data);
       } catch (err) {
         console.error("Error fetching destinations:", err);
@@ -139,16 +138,7 @@ const EditNewHotel = () => {
     formData.append("existingImages", JSON.stringify(existingImages));
 
     try {
-      await axios.put(
-        `http://localhost:4000/api/hotels/update/${id}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
+      await updateHotel(id, formData);
       alert("Hotel updated successfully");
       navigate("/hotelpage/all-hotels");
     } catch (err) {

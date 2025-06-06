@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HiPencil } from "react-icons/hi2";
 import { MdDelete } from "react-icons/md";
+import { deleteHotel, getAllHotels } from "../api/hotelApi";
 
 const AllHotels = () => {
   const [hotels, setHotels] = useState([]);
@@ -11,7 +11,7 @@ const AllHotels = () => {
 
   const fetchHotels = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/api/hotels/");
+      const res = await getAllHotels();
       setHotels(res.data);
     } catch (err) {
       console.error("Error fetching hotels:", err);
@@ -21,7 +21,7 @@ const AllHotels = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this hotel?")) return;
     try {
-      await axios.delete(`http://localhost:4000/api/hotels/del/${id}`);
+      await deleteHotel(id)
       fetchHotels(); // Refresh list
     } catch (err) {
       console.error("Error deleting hotel:", err);

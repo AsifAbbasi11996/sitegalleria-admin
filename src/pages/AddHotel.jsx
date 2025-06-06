@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CloudUpload, X } from "lucide-react";
-import { addHotel } from "../api/hotelApi"; // import your API helper
+import { addHotel } from "../api/homehotelApi"; // import your API helper
 
 const MAX_SLIDES = 10; // updated max slides
 

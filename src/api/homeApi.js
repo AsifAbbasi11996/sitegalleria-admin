@@ -2,7 +2,7 @@ import axios from "axios";
 import { API_URL } from "../utils/baseUrl";
 
 // home slider
-export const getAllSlider = async () => {
+export const getAllSlider = () => {
   return axios.get(`${API_URL}/home/slider/`);
 };
 

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { CloudUpload } from "lucide-react";
 import { MdClose, MdDelete } from "react-icons/md";
+import { getDestinations } from "../api/api";
+import { addHotel } from "../api/hotelApi";
 
 const AddNewHotel = () => {
   const [formData, setFormData] = useState({
@@ -31,7 +32,7 @@ const AddNewHotel = () => {
     // Fetch destination list
     const fetchDestinations = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/api/home/location");
+        const res = await getDestinations();
         setDestinations(res.data);
       } catch (err) {
         console.error("Error fetching destinations:", err);
@@ -90,7 +91,7 @@ const AddNewHotel = () => {
     images.forEach((img) => data.append("images", img));
 
     try {
-      await axios.post("http://localhost:4000/api/hotels/add", data);
+      await addHotel(data);
       alert("Hotel created successfully!");
     } catch (error) {
       console.error(error);
