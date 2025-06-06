@@ -69,18 +69,18 @@ export default function Sidebar() {
         </div>
 
         <nav className="space-y-2 lg:text-base text-sm">
-           <Link
+          <Link
             to="/logo"
             onClick={handleLinkClick}
             className={`block py-2 px-4 rounded transition duration-200 ${
               location.pathname === "/logo"
-              ? "bg-blue-600"
-              : "hover:bg-gray-700"
-              }`}
-              >
+                ? "bg-blue-600"
+                : "hover:bg-gray-700"
+            }`}
+          >
             Logo
           </Link>
-            {/* Home Pages Dropdown */}
+          {/* Home Pages Dropdown */}
           <div>
             <button
               onClick={() => setHomeDropdownOpen(!homeDropdownOpen)}
@@ -159,6 +159,38 @@ export default function Sidebar() {
           </div>
 
           {/* Other Links */}
+          <div>
+            <button
+              onClick={() => setHomeDropdownOpen(!homeDropdownOpen)}
+              className={`w-full flex justify-between items-center py-2 px-4 mb-2 rounded transition duration-200 ${
+                location.pathname.startsWith("/hotelpage")
+                  ? "bg-blue-600"
+                  : "hover:bg-gray-700"
+              }`}
+            >
+              <span>Hotels Pages</span>
+              {homeDropdownOpen ? (
+                <ChevronDown size={16} />
+              ) : (
+                <ChevronRight size={16} />
+              )}
+            </button>
+            {homeDropdownOpen && (
+              <div className="ml-4 bg-gray-800 rounded-md">
+                <Link
+                  to="/hotelpage/add-hotel"
+                  onClick={handleLinkClick}
+                  className={`block py-2 px-3 rounded transition duration-200 ${
+                    location.pathname === "/hotelpage/add-hotel"
+                      ? "bg-blue-600"
+                      : "hover:bg-gray-700"
+                  }`}
+                >
+                  Add Hotel
+                </Link>
+              </div>
+            )}
+          </div>
           <Link
             to="/rooms"
             onClick={handleLinkClick}

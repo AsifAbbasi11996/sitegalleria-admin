@@ -11,6 +11,7 @@ import AddHotel from "./pages/AddHotel";
 import HomeSlider from "./pages/HomeSlider";
 import BannerManager from "./pages/BannerManager";
 import LogoManager from "./pages/LogoManager";
+import AddNewHotel from "./pages/AddNewHotel";
 
 function App() {
   const location = useLocation();
@@ -77,6 +78,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <EditHotel />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/hotelpage/add-hotel"
+              element={
+                <ProtectedRoute>
+                  <AddNewHotel />
                 </ProtectedRoute>
               }
             />
