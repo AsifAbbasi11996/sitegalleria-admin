@@ -307,7 +307,7 @@ const EditNewHotel = () => {
                 <img
                   src={URL.createObjectURL(img)}
                   alt="Preview"
-                  className="w-28 h-28 md:h-40 object-cover rounded shadow"
+                  className="w-full h-28 md:h-40 object-cover rounded shadow"
                 />
                 <button
                   type="button"
