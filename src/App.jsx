@@ -14,6 +14,8 @@ import LogoManager from "./pages/LogoManager";
 import AddNewHotel from "./pages/AddNewHotel";
 import AllHotels from "./pages/AllHotels";
 import EditNewHotel from "./pages/EditNewHotel";
+import HomeContact from "./pages/HomeContact";
+import HomeAbout from "./pages/HomeAbout";
 
 function App() {
   const location = useLocation();
@@ -28,7 +30,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route
-              path="/logo"
+              path="/navbar/logo"
               element={
                 <ProtectedRoute>
                   <LogoManager />
@@ -44,6 +46,22 @@ function App() {
               }
             />
             <Route
+              path="/homepage/home-contact"
+              element={
+                <ProtectedRoute>
+                  <HomeContact />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/homepage/home-about"
+              element={
+                <ProtectedRoute>
+                  <HomeAbout />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/homepage/famous-hotel-slider"
               element={
                 <ProtectedRoute>
@@ -52,7 +70,7 @@ function App() {
               }
             />
             <Route
-              path="/homepage/locations"
+              path="/navbar/locations"
               element={
                 <ProtectedRoute>
                   <LocationManager />

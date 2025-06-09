@@ -5,6 +5,7 @@ import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 export default function Sidebar() {
   const location = useLocation();
   const [open, setOpen] = useState(true);
+  const [navbarDropdownOpen, setNavbarDropdownOpen] = useState(false);
   const [homeDropdownOpen, setHomeDropdownOpen] = useState(false);
   const [hotelDropdownOpen, setHotelDropdownOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -70,17 +71,50 @@ export default function Sidebar() {
         </div>
 
         <nav className="space-y-2 lg:text-base text-sm">
-          <Link
-            to="/logo"
-            onClick={handleLinkClick}
-            className={`block py-2 px-4 rounded transition duration-200 ${
-              location.pathname === "/logo"
-                ? "bg-blue-600"
-                : "hover:bg-gray-700"
-            }`}
-          >
-            Logo
-          </Link>
+          {/* Navbar Section */}
+          <div>
+            <button
+              onClick={() => setNavbarDropdownOpen(!navbarDropdownOpen)}
+              className={`w-full flex justify-between items-center py-2 px-4 mb-2 rounded transition duration-200 ${
+                location.pathname.startsWith("/navbar")
+                  ? "bg-blue-600"
+                  : "hover:bg-gray-700"
+              }`}
+            >
+              <span>Navbar</span>
+              {navbarDropdownOpen ? (
+                <ChevronDown size={16} />
+              ) : (
+                <ChevronRight size={16} />
+              )}
+            </button>
+            {navbarDropdownOpen && (
+              <div className="ml-4 p-1 bg-gray-800 rounded-md">
+                <Link
+                  to="/navbar/logo"
+                  onClick={handleLinkClick}
+                  className={`block py-2 px-3 m-1 rounded transition duration-200 ${
+                    location.pathname === "/navbar/logo"
+                      ? "bg-blue-600"
+                      : "hover:bg-gray-700"
+                  }`}
+                >
+                  Logo
+                </Link>
+                <Link
+                  to="/navbar/locations"
+                  onClick={handleLinkClick}
+                  className={`block py-2 px-3 m-1 rounded transition duration-200 ${
+                    location.pathname === "/navbar/locations"
+                      ? "bg-blue-600"
+                      : "hover:bg-gray-700"
+                  }`}
+                >
+                  Locations
+                </Link>
+              </div>
+            )}
+          </div>
           {/* Home Pages Dropdown */}
           <div>
             <button
@@ -99,61 +133,72 @@ export default function Sidebar() {
               )}
             </button>
             {homeDropdownOpen && (
-              <div className="ml-4 bg-gray-800 rounded-md">
+              <div className="ml-4 p-1 bg-gray-800 rounded-md">
                 <Link
                   to="/homepage/home-slider"
                   onClick={handleLinkClick}
-                  className={`block py-2 px-3 rounded transition duration-200 ${
+                  className={`block py-2 px-3 m-1 rounded transition duration-200 ${
                     location.pathname === "/homepage/home-slider"
                       ? "bg-blue-600"
                       : "hover:bg-gray-700"
                   }`}
                 >
-                  Home Slider
+                  Slider Section
                 </Link>
                 <Link
-                  to="/homepage/locations"
+                  to="/homepage/home-contact"
                   onClick={handleLinkClick}
-                  className={`block py-2 px-3 rounded transition duration-200 ${
-                    location.pathname === "/homepage/locations"
+                  className={`block py-2 px-3 m-1 rounded transition duration-200 ${
+                    location.pathname === "/homepage/home-contact"
                       ? "bg-blue-600"
                       : "hover:bg-gray-700"
                   }`}
                 >
-                  Location
+                  Contact Section
+                </Link>
+                <Link
+                  to="/homepage/home-about"
+                  onClick={handleLinkClick}
+                  className={`block py-2 px-3 m-1 rounded transition duration-200 ${
+                    location.pathname === "/homepage/home-about"
+                      ? "bg-blue-600"
+                      : "hover:bg-gray-700"
+                  }`}
+                >
+                  About Section
                 </Link>
                 <Link
                   to="/homepage/famous-hotel-slider"
                   onClick={handleLinkClick}
-                  className={`block py-2 px-3 rounded transition duration-200 ${
+                  className={`block py-2 px-3 m-1 rounded transition duration-200 ${
                     location.pathname === "/homepage/famous-hotel-slider"
                       ? "bg-blue-600"
                       : "hover:bg-gray-700"
                   }`}
                 >
-                  Famous Hotel Slider
+                  Famous Hotel Section
                 </Link>
                 <Link
                   to="/homepage/hotels"
                   onClick={handleLinkClick}
-                  className={`block py-2 px-3 rounded transition duration-200 ${
+                  className={`block py-2 px-3 m-1 rounded transition duration-200 ${
                     location.pathname === "/homepage/hotels"
                       ? "bg-blue-600"
                       : "hover:bg-gray-700"
                   }`}
                 >
-                  Hotels
+                  Hotels Section
                 </Link>
                 <Link
                   to="/homepage/banner"
                   onClick={handleLinkClick}
-                  className={`block py-2 px-3 rounded transition duration-200 ${
+                  className={`block py-2 px-3 m-1 rounded transition duration-200 ${
                     location.pathname === "/homepage/banner"
                       ? "bg-blue-600"
                       : "hover:bg-gray-700"
                   }`}
                 >
-                  Banner
+                  Banner Section
                 </Link>
               </div>
             )}
@@ -177,11 +222,11 @@ export default function Sidebar() {
               )}
             </button>
             {hotelDropdownOpen && (
-              <div className="ml-4 bg-gray-800 rounded-md">
+              <div className="ml-4 p-1 bg-gray-800 rounded-md">
                 <Link
                   to="/hotelpage/all-hotels"
                   onClick={handleLinkClick}
-                  className={`block py-2 px-3 my-2 rounded transition duration-200 ${
+                  className={`block py-2 px-3 m-1 rounded transition duration-200 ${
                     location.pathname === "/hotelpage/all-hotels"
                       ? "bg-blue-600"
                       : "hover:bg-gray-700"
@@ -192,7 +237,7 @@ export default function Sidebar() {
                 <Link
                   to="/hotelpage/add-hotel"
                   onClick={handleLinkClick}
-                  className={`block py-2 px-3 my-2 rounded transition duration-200 ${
+                  className={`block py-2 px-3 m-1 rounded transition duration-200 ${
                     location.pathname === "/hotelpage/add-hotel"
                       ? "bg-blue-600"
                       : "hover:bg-gray-700"
@@ -203,17 +248,6 @@ export default function Sidebar() {
               </div>
             )}
           </div>
-          <Link
-            to="/rooms"
-            onClick={handleLinkClick} 
-            className={`block py-2 px-4 my-2 rounded transition duration-200 ${
-              location.pathname === "/rooms"
-                ? "bg-blue-600"
-                : "hover:bg-gray-700"
-            }`}
-          >
-            Rooms
-          </Link>
         </nav>
       </div>
     </div>

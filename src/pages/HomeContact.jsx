@@ -1,0 +1,229 @@
+import { useEffect, useState } from "react";
+import {
+  getHomeContact,
+  addHomeContact,
+  updateHomeContact,
+  deleteHomeContact,
+} from "../api/homeApi"; // adjust path if needed
+import { CloudUpload } from "lucide-react";
+
+const HomeContact = () => {
+  const [contacts, setContacts] = useState([]);
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    email: "",
+    phone: "",
+    bgImage: null,
+  });
+  const [preview, setPreview] = useState(null);
+  const [editId, setEditId] = useState(null);
+
+  useEffect(() => {
+    fetchContacts();
+  }, []);
+
+  const fetchContacts = async () => {
+    try {
+      const res = await getHomeContact();
+      setContacts(res.data);
+    } catch (err) {
+      console.error("Failed to fetch contacts", err);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    if (name === "bgImage") {
+      setForm((prev) => ({ ...prev, bgImage: files[0] }));
+      setPreview(URL.createObjectURL(files[0]));
+    } else {
+      setForm((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    formData.append("title", form.title);
+    formData.append("description", form.description);
+    formData.append("email", form.email);
+    formData.append("phone", form.phone);
+
+    if (form.bgImage) {
+      formData.append("bgImage", form.bgImage);
+    }
+
+    try {
+      if (editId) {
+        await updateHomeContact(editId, formData);
+      } else {
+        await addHomeContact(formData);
+      }
+
+      resetForm();
+      fetchContacts();
+    } catch (err) {
+      console.error("Failed to submit form", err);
+    }
+  };
+
+  const handleEdit = (contact) => {
+    setForm({
+      title: contact.title,
+      description: contact.description,
+      email: contact.email,
+      phone: contact.phone,
+      bgImage: null,
+    });
+    setEditId(contact._id);
+    setPreview(contact.bgImage);
+  };
+
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this contact?")) {
+      try {
+        await deleteHomeContact(id);
+        fetchContacts();
+      } catch (err) {
+        console.error("Delete failed", err);
+      }
+    }
+  };
+
+  const resetForm = () => {
+    setForm({
+      title: "",
+      description: "",
+      email: "",
+      phone: "",
+      bgImage: null,
+    });
+    setPreview(null);
+    setEditId(null);
+  };
+
+  return (
+    <div className="p-4">
+      <h2 className="md:text-2xl text-xl font-bold text-center mb-4">
+        Manage Home Contact
+      </h2>
+
+      <form onSubmit={handleSubmit} className="space-y-3">
+        <input
+          type="text"
+          name="title"
+          placeholder="Title"
+          value={form.title}
+          onChange={handleChange}
+          className="w-full p-2 rounded outline-0 border border-[#e2e2e2]"
+        />
+        <textarea
+          name="description"
+          placeholder="Description"
+          value={form.description}
+          onChange={handleChange}
+          className="w-full p-2 rounded outline-0 border border-[#e2e2e2]"
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={form.email}
+          onChange={handleChange}
+          className="w-full p-2 rounded outline-0 border border-[#e2e2e2]"
+        />
+        <input
+          type="text"
+          name="phone"
+          placeholder="Phone"
+          value={form.phone}
+          onChange={handleChange}
+          className="w-full p-2 rounded outline-0 border border-[#e2e2e2]"
+        />
+        <label
+          htmlFor="bgImage"
+          className="text-[#b2b2b2] border-2 border-dashed border-gray-300 p-3 rounded-xl cursor-pointer md:w-52 md:h-52 w-40 h-40 flex items-center justify-center flex-col transition hover:border-blue-500"
+        >
+          {preview ? (
+            <img
+              src={preview}
+              alt="Preview"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          ) : (
+            <>
+              <CloudUpload size={30} className="text-blue-500 mb-2" />
+              <p className="md:text-base text-xs">Upload Background</p>
+              <p className="uppercase md:text-[12px] text-[10px] text-center">
+                svg, png, jpeg, webp, avif
+              </p>
+            </>
+          )}
+          <input
+            type="file"
+            id="bgImage"
+            name="bgImage"
+            className="hidden"
+            onChange={handleChange}
+            required={!editId}
+          />
+        </label>
+
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2 rounded"
+        >
+          {editId ? "Update" : "Add"}
+        </button>
+        {editId && (
+          <button
+            type="button"
+            onClick={resetForm}
+            className="ml-2 text-sm underline text-gray-600"
+          >
+            Cancel Edit
+          </button>
+        )}
+      </form>
+
+      <hr className="my-6" />
+
+      <h3 className="text-lg font-semibold mb-2">All Home Contacts</h3>
+      <div className="grid md:grid-cols-2 gap-4">
+        {contacts.map((contact) => (
+          <div key={contact._id} className="border border-[#e4e4e4] p-4 rounded shadow">
+            <img
+              src={contact.bgImage}
+              alt=""
+              className="h-32 w-full object-cover rounded mb-2"
+            />
+            <h4 className="font-bold">{contact.title}</h4>
+            <p>{contact.description}</p>
+            <p className="text-sm text-gray-600">
+              {contact.email} | {contact.phone}
+            </p>
+
+            <div className="flex gap-2 mt-3">
+              <button
+                onClick={() => handleEdit(contact)}
+                className="text-blue-500 underline"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDelete(contact._id)}
+                className="text-red-500 underline"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default HomeContact;

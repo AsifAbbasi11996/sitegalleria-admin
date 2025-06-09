@@ -77,7 +77,7 @@ export default function LocationManager() {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="border p-2 w-64 rounded"
+          className="border border-[#e4e4e4] p-2 w-64 rounded"
           placeholder="Location Name"
         />
         <button

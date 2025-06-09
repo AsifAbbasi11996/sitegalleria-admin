@@ -1,26 +1,57 @@
 import axios from "axios";
 import { API_URL } from "../utils/baseUrl";
 
-// slider famous hotel 
+// slider famous hotel
 export const uploadSlider = (formData) =>
-  axios.post(`${API_URL}/slider/add`, formData, {
+  axios.post(`${API_URL}/home/hotelImage/add`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
 
-export const getSliders = () => axios.get(`${API_URL}/slider`);
+export const addMoreHotelImages = async (id, formData) => {
+  return await axios.put(
+    `${API_URL}/home/hotelImage/add-images/${id}`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+};
+
+export const updateHotelImageByImageId = (imageId, id, formData) => {
+  return axios.put(
+    `${API_URL}/home/hotelImage/update/${id}/${imageId}`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+};
+
+export const getSliders = () => {
+  return axios.get(`${API_URL}/home/hotelImage`);
+};
 
 export const updateSlider = (id, formData) => {
-  return axios.put(`${API_URL}/slider/update/${id}`, formData, {
+  return axios.put(`${API_URL}/home/hotelImage/update/${id}`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
   });
 };
 
-export const deleteSlider = (id) => {
-  return axios.delete(`${API_URL}/slider/del/${id}`);
+export const deleteImageFromHotelImage = (hotelImageId, imageId) => {
+  return axios.delete(
+    `${API_URL}/home/hotelImage/del/image/${hotelImageId}/${imageId}`
+  );
 };
 
+export const deleteSlider = (id) => {
+  return axios.delete(`${API_URL}/home/hotelImage/del/${id}`);
+};
 
 // Location apis
 

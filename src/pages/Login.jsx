@@ -25,7 +25,7 @@ export default function Login() {
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("adminToken", response.data.token);
       localStorage.setItem("adminUsername", response.data.admin.username);
-      navigate("/logo");
+      navigate("/navbar/logo");
     } catch (err) {
       console.error("Login failed", err);
       const message =
