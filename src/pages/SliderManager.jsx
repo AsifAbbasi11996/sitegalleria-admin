@@ -87,34 +87,34 @@ export default function SliderManager() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-6 space-y-8 font-sans bg-gray-50 min-h-screen">
+    <div className="space-y-8 bg-gray-50 min-h-screen">
       <h2 className="md:text-2xl text-xl font-bold border-b border-gray-300 pb-2 mb-4">
         Famous Hotel Manager
       </h2>
 
       {/* Heading & Quote Section */}
       <section className="bg-white shadow rounded p-6 space-y-4">
-        <h3 className="text-xl font-semibold text-gray-700">
+        <h3 className="md:text-xl text-base font-semibold text-gray-700">
           Update Heading & Quote
         </h3>
-        <div className="flex flex-col sm:flex-row gap-4">
+        <div className="flex flex-col lg:flex-row gap-4">
           <input
             type="text"
             placeholder="Heading"
             value={heading}
             onChange={(e) => setHeading(e.target.value)}
-            className="flex-1 border border-[#e2e2e2] outline-0 rounded px-4 py-2 "
+            className="md:text-base text-sm flex-1 border border-[#e2e2e2] outline-0 rounded px-4 py-2 "
           />
           <input
             type="text"
             placeholder="Quote"
             value={quote}
             onChange={(e) => setQuote(e.target.value)}
-            className="flex-1 border border-[#e2e2e2] outline-0 rounded px-4 py-2 "
+            className="md:text-base text-sm flex-1 border border-[#e2e2e2] outline-0 rounded px-4 py-2 "
           />
           <button
             onClick={handleUpdateHeadingQuote}
-            className="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 transition"
+            className="md:text-base text-sm bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 transition"
           >
             Update
           </button>
@@ -122,13 +122,13 @@ export default function SliderManager() {
       </section>
 
       {/* Add/Edit Image Form */}
-      <section className="bg-white shadow rounded p-6 space-y-4">
-        <h3 className="text-xl font-semibold text-gray-700">
+      <section className="bg-white shadow rounded md:p-6 p-3 space-y-4">
+        <h3 className="md:text-xl text-base font-semibold text-gray-700">
           {editImageId ? "Edit Image" : "Add New Image"}
         </h3>
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col sm:flex-row sm:items-center gap-6"
+          className="flex items-center justify-center flex-wrap sm:gap-4 gap-3"
         >
           <div className="flex flex-col">
             <label
@@ -194,7 +194,7 @@ export default function SliderManager() {
 
           <div className="flex flex-col gap-4">
             <div className="flex flex-col flex-1">
-              <label htmlFor="" className="mb-1 font-medium text-gray-600">
+              <label htmlFor="" className="mb-1 font-medium text-gray-600 md:text-base text-sm">
                 Link
               </label>
               <input
@@ -202,13 +202,13 @@ export default function SliderManager() {
                 placeholder="Link"
                 value={link}
                 onChange={(e) => setLink(e.target.value)}
-                className="border border-[#e2e2e2] outline-0 rounded px-4 py-2 "
+                className="md:text-base text-sm border border-[#e2e2e2] outline-0 rounded px-4 py-2 "
               />
             </div>
 
             <button
               type="submit"
-              className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition"
+              className="md:text-base text-sm bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition"
             >
               {editImageId ? "Update" : "Add"}
             </button>
@@ -218,7 +218,7 @@ export default function SliderManager() {
 
       {/* Images List */}
       <section className="bg-white shadow rounded p-6">
-        <h3 className="text-xl font-semibold text-gray-700 mb-4">All Hotel Images</h3>
+        <h3 className="md:text-xl text-lg font-semibold text-gray-700 mb-4">All Hotel Images</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {images?.map((img) => (
             <div
@@ -269,7 +269,7 @@ export default function SliderManager() {
 
       <button
         onClick={handleDeleteSlider}
-        className="mt-6 bg-red-600 text-white px-6 py-3 rounded w-full sm:w-auto hover:bg-red-700 transition"
+        className="my-4 bg-red-600 text-white px-6 py-3 rounded w-full sm:w-auto hover:bg-red-700 transition"
       >
         Delete Entire Slider
       </button>

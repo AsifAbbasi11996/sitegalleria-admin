@@ -6,6 +6,8 @@ import {
   deleteHomeAbout,
 } from "../api/homeApi";
 import { CloudUpload } from "lucide-react"; // or use react-icons
+import { HiPencil } from "react-icons/hi2";
+import { MdDelete } from "react-icons/md";
 
 const HomeAbout = () => {
   const [preview, setPreview] = useState(null);
@@ -82,12 +84,14 @@ const HomeAbout = () => {
 
   return (
     <div className="p-4">
-        <h1 className="md:text-2xl text-xl font-bold text-center mb-4">Manage Home About section</h1>
+      <h1 className="md:text-2xl text-xl font-bold text-center mb-4">
+        Manage Home About section
+      </h1>
       <form onSubmit={handleSubmit} className="space-y-4 mb-8">
         <input
           type="text"
           placeholder="Title"
-          className="border border-[#e2e2e2] px-3 py-2 rounded w-full outline-0"
+          className="border border-[#e2e2e2] px-3 py-2 rounded w-full outline-0 md:text-base text-sm"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
@@ -95,14 +99,14 @@ const HomeAbout = () => {
         <input
           type="text"
           placeholder="Heading"
-          className="border border-[#e2e2e2] px-3 py-2 rounded w-full outline-0"
+          className="border border-[#e2e2e2] px-3 py-2 rounded w-full outline-0 md:text-base text-sm"
           value={heading}
           onChange={(e) => setHeading(e.target.value)}
           required
         />
         <textarea
           placeholder="Description"
-          className="border border-[#e2e2e2] px-3 py-2 rounded w-full outline-0"
+          className="border border-[#e2e2e2] px-3 py-2 rounded w-full h-40 outline-0 md:text-base text-sm"
           rows={4}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -111,7 +115,7 @@ const HomeAbout = () => {
         <input
           type="text"
           placeholder="Link"
-          className="border border-[#e2e2e2] px-3 py-2 rounded w-full outline-0"
+          className="border border-[#e2e2e2] px-3 py-2 rounded w-full outline-0 md:text-base text-sm"
           value={link}
           onChange={(e) => setLink(e.target.value)}
           required
@@ -149,14 +153,25 @@ const HomeAbout = () => {
 
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 md:text-base text-sm"
         >
           {editId ? "Update" : "Add"}
         </button>
+        {editId && (
+          <button
+            type="button"
+            onClick={resetForm}
+            className="ml-2 bg-red-600 text-white px-4 py-2 rounded md:text-base text-sm"
+          >
+            Cancel Edit
+          </button>
+        )}
       </form>
 
+      <hr className="my-6" />
+
       {/* List of entries */}
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="">
         {abouts.map((about) => (
           <div
             key={about._id}
@@ -165,24 +180,24 @@ const HomeAbout = () => {
             <img
               src={about.image}
               alt={about.title}
-              className="w-32 h-32 object-cover rounded-lg"
+              className="md:w-56 w-full h-40 object-cover rounded-lg"
             />
             <div className="flex-1">
               <h3 className="text-lg font-bold">{about.heading}</h3>
               <p className="text-sm text-gray-600 mb-2">{about.description}</p>
-              <p className="text-blue-600 text-sm">{about.link}</p>
+              <p>Link : <span className="text-blue-600 text-sm">{about.link}</span></p>
               <div className="flex gap-2 mt-2">
                 <button
                   onClick={() => handleEdit(about)}
-                  className="bg-yellow-400 text-white px-3 py-1 rounded"
+                  className="text-green-500 hover:text-green-700 bg-green-100 p-2 rounded-md cursor-pointer"
                 >
-                  Edit
+                  <HiPencil size={20} />
                 </button>
                 <button
                   onClick={() => handleDelete(about._id)}
-                  className="bg-red-500 text-white px-3 py-1 rounded"
+                  className="text-red-500 hover:text-red-700 bg-red-100 p-2 rounded-md cursor-pointer"
                 >
-                  Delete
+                  <MdDelete size={20} />
                 </button>
               </div>
             </div>

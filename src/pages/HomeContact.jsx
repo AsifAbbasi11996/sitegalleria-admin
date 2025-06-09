@@ -6,6 +6,8 @@ import {
   deleteHomeContact,
 } from "../api/homeApi"; // adjust path if needed
 import { CloudUpload } from "lucide-react";
+import { HiPencil } from "react-icons/hi2";
+import { MdDelete } from "react-icons/md";
 
 const HomeContact = () => {
   const [contacts, setContacts] = useState([]);
@@ -105,7 +107,7 @@ const HomeContact = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="md:p-6 p-2 py-2">
       <h2 className="md:text-2xl text-xl font-bold text-center mb-4">
         Manage Home Contact
       </h2>
@@ -117,14 +119,14 @@ const HomeContact = () => {
           placeholder="Title"
           value={form.title}
           onChange={handleChange}
-          className="w-full p-2 rounded outline-0 border border-[#e2e2e2]"
+          className="w-full p-2 rounded outline-0 border border-[#e2e2e2] md:text-base text-sm"
         />
         <textarea
           name="description"
           placeholder="Description"
           value={form.description}
           onChange={handleChange}
-          className="w-full p-2 rounded outline-0 border border-[#e2e2e2]"
+          className="w-full h-40 p-2 rounded outline-0 border border-[#e2e2e2] md:text-base text-sm"
         />
         <input
           type="email"
@@ -132,7 +134,7 @@ const HomeContact = () => {
           placeholder="Email"
           value={form.email}
           onChange={handleChange}
-          className="w-full p-2 rounded outline-0 border border-[#e2e2e2]"
+          className="w-full p-2 rounded outline-0 border border-[#e2e2e2] md:text-base text-sm"
         />
         <input
           type="text"
@@ -140,7 +142,7 @@ const HomeContact = () => {
           placeholder="Phone"
           value={form.phone}
           onChange={handleChange}
-          className="w-full p-2 rounded outline-0 border border-[#e2e2e2]"
+          className="w-full p-2 rounded outline-0 border border-[#e2e2e2] md:text-base text-sm"
         />
         <label
           htmlFor="bgImage"
@@ -173,7 +175,7 @@ const HomeContact = () => {
 
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded"
+          className="bg-blue-600 text-white px-4 py-2 rounded md:text-base text-sm"
         >
           {editId ? "Update" : "Add"}
         </button>
@@ -181,7 +183,7 @@ const HomeContact = () => {
           <button
             type="button"
             onClick={resetForm}
-            className="ml-2 text-sm underline text-gray-600"
+            className="ml-2 bg-red-600 text-white px-4 py-2 rounded md:text-base text-sm"
           >
             Cancel Edit
           </button>
@@ -191,7 +193,7 @@ const HomeContact = () => {
       <hr className="my-6" />
 
       <h3 className="text-lg font-semibold mb-2">All Home Contacts</h3>
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className="">
         {contacts.map((contact) => (
           <div key={contact._id} className="border border-[#e4e4e4] p-4 rounded shadow">
             <img
@@ -200,7 +202,7 @@ const HomeContact = () => {
               className="h-32 w-full object-cover rounded mb-2"
             />
             <h4 className="font-bold">{contact.title}</h4>
-            <p>{contact.description}</p>
+            <p className="md:text-base text-sm">{contact.description}</p>
             <p className="text-sm text-gray-600">
               {contact.email} | {contact.phone}
             </p>
@@ -208,15 +210,15 @@ const HomeContact = () => {
             <div className="flex gap-2 mt-3">
               <button
                 onClick={() => handleEdit(contact)}
-                className="text-blue-500 underline"
+                className="text-green-500 hover:text-green-700 bg-green-100 p-2 rounded-md cursor-pointer"
               >
-                Edit
+                <HiPencil size={20}/>
               </button>
               <button
                 onClick={() => handleDelete(contact._id)}
-                className="text-red-500 underline"
+               className="text-red-500 hover:text-red-700 bg-red-100 p-2 rounded-md cursor-pointer"
               >
-                Delete
+                <MdDelete size={20}/>
               </button>
             </div>
           </div>
