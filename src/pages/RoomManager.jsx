@@ -163,7 +163,7 @@ const RoomManager = () => {
         onSubmit={handleSubmit}
         className="px-4 pb-8 mb-6 space-y-4"
       >
-        <div className="flex gap-6">
+        <div className="flex sm:flex-row flex-col sm:gap-6 gap-3">
           <input
             type="text"
             name="title"
