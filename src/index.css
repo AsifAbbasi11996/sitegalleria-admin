@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
-button{
-    cursor: pointer;
+button {
+  cursor: pointer;
+}
+
+.scrollbar-custom {
+  scrollbar-width: thin;
+  scrollbar-color: #1e2939 #101828;
 }

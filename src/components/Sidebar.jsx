@@ -47,7 +47,7 @@ export default function Sidebar() {
       {/* Sidebar */}
       <div
         className={`
-          fixed top-0 left-0 h-full bg-gray-900 text-white p-4 z-40 transition-all duration-300 ease-in-out
+          fixed top-0 left-0 h-full bg-gray-900 overflow-y-scroll scrollbar-custom text-white p-4 z-40 transition-all duration-300 ease-in-out
           ${open ? "translate-x-0" : "-translate-x-full"}
           ${isMobile ? "w-64" : "lg:w-64 md:w-52 md:relative md:translate-x-0"}
         `}
