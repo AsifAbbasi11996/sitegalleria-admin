@@ -250,6 +250,17 @@ export default function Sidebar() {
           </div>
 
           <Link
+            to="/about-us"
+            onClick={handleLinkClick}
+            className={`block py-2 px-3 m-1 rounded transition duration-200 ${
+              location.pathname === "/about-us"
+                ? "bg-blue-600"
+                : "hover:bg-gray-700"
+            }`}
+          >
+            About Us
+          </Link>
+          <Link
             to="/rooms"
             onClick={handleLinkClick}
             className={`block py-2 px-3 m-1 rounded transition duration-200 ${

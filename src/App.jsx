@@ -18,6 +18,7 @@ import HomeContact from "./pages/HomeContact";
 import HomeAbout from "./pages/HomeAbout";
 import RoomManager from "./pages/RoomManager";
 import BanquetManager from "./pages/BanquetManager";
+import About from "./pages/About";
 
 function App() {
   const location = useLocation();
@@ -128,6 +129,7 @@ function App() {
               }
             />
             <Route path="/homepage/hotels" element={<Hotel />} />
+            <Route path="/about-us" element={<About />} />
             <Route path="/rooms" element={<RoomManager />} />
             <Route path="/banquets" element={<BanquetManager />} />
           </Routes>
