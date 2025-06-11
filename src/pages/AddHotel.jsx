@@ -10,6 +10,7 @@ const AddHotel = () => {
   const [logoPreview, setLogoPreview] = useState(null);
   const [bgImage, setBgImage] = useState(null);
   const [bgImagePreview, setBgImagePreview] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // Slides data: start with 1 slide
   const [slides, setSlides] = useState([
@@ -51,25 +52,23 @@ const AddHotel = () => {
     }
 
     const formData = new FormData();
-
     formData.append("description", description);
     formData.append("logo", logo);
     formData.append("bgImage", bgImage);
 
     slides.forEach((slide, i) => {
-      const idx = i + 1; // slide1, slide2, ...
+      const idx = i + 1;
       formData.append(`title${idx}`, slide.title);
       formData.append(`desc${idx}`, slide.desc);
       formData.append(`link${idx}`, slide.link);
-      if (slide.bg) {
-        formData.append(`slide${idx}`, slide.bg);
-      }
+      if (slide.bg) formData.append(`slide${idx}`, slide.bg);
     });
 
     try {
-      const response = await addHotel(formData); // use your API helper
-
+      setLoading(true);
+      await addHotel(formData);
       alert("Hotel added successfully!");
+
       // Reset form
       setDescription("");
       setLogo(null);
@@ -79,6 +78,8 @@ const AddHotel = () => {
       setSlides([{ title: "", desc: "", link: "", bg: null, preview: null }]);
     } catch (err) {
       alert("Error: " + (err.response?.data?.message || err.message));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -179,22 +180,6 @@ const AddHotel = () => {
 
         {/* Slides */}
         <div>
-          <h4 className="text-xl font-semibold mb-4 text-gray-700 flex justify-between items-center">
-            Slides
-            <button
-              type="button"
-              onClick={addSlide}
-              disabled={slides.length >= MAX_SLIDES}
-              className={`px-3 py-1 rounded text-white text-sm ${
-                slides.length >= MAX_SLIDES
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-green-600 hover:bg-green-700"
-              }`}
-            >
-              Add Slide
-            </button>
-          </h4>
-
           {slides.map((slide, index) => (
             <div
               key={index}
@@ -296,13 +281,31 @@ const AddHotel = () => {
               </div>
             </div>
           ))}
+          <h4 className="text-xl font-semibold mb-4 text-gray-700 flex justify-between items-center">
+            Slides
+            <button
+              type="button"
+              onClick={addSlide}
+              disabled={slides.length >= MAX_SLIDES}
+              className={`px-3 py-1 rounded text-white text-sm ${
+                slides.length >= MAX_SLIDES
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-green-600 hover:bg-green-700"
+              }`}
+            >
+              Add Slide
+            </button>
+          </h4>
         </div>
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-4 rounded hover:bg-blue-700 transition-colors mb-10 md:text-base text-sm"
+          className={`w-full bg-blue-600 text-white py-4 rounded ${
+            loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
+          } transition-colors mb-10 md:text-base text-sm`}
+          disabled={loading}
         >
-          Create Hotel
+          {loading ? "Creating..." : "Create Hotel"}
         </button>
       </form>
     </div>

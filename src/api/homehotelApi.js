@@ -1,8 +1,8 @@
 import axios from "axios";
 import { API_URL } from "../utils/baseUrl";
 
-export const addHotel = (formData) => {
-  return axios.post(`${API_URL}/home/hotel/add`, formData, {
+export const addHotel = async (formData) => {
+  return await axios.post(`${API_URL}/home/hotel/add`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -27,4 +27,8 @@ export const updateHotel = (id, formData) => {
 
 export const deleteHotel = (id) => {
   return axios.delete(`${API_URL}/home/hotel/del/${id}`);
+};
+
+export const deleteSlide = async (id, slideId) => {
+  return await axios.delete(`${API_URL}/home/hotel/${id}/slide/${slideId}`);
 };

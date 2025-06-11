@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getHotelById, updateHotel } from "../api/homehotelApi";
+import { deleteSlide, getHotelById, updateHotel } from "../api/homehotelApi";
 import { CloudUpload } from "lucide-react";
 import { MdDelete } from "react-icons/md";
 
@@ -28,6 +28,7 @@ const EditHotel = () => {
 
         setSlides(
           hotel.slides.map((slide) => ({
+            _id: slide._id,
             title: slide.title || "",
             desc: slide.desc || "",
             link: slide.link || "",
@@ -58,10 +59,15 @@ const EditHotel = () => {
     }
   };
 
-  const removeSlide = (index) => {
-    const updatedSlides = [...slides];
-    updatedSlides.splice(index, 1);
-    setSlides(updatedSlides);
+  const handleDeleteSlide = async (slideId) => {
+    try {
+      await deleteSlide(id, slideId);
+      setSlides(slides.filter((s) => s._id !== slideId)); // Update local state
+      alert("Slide deleted successfully");
+    } catch (error) {
+      console.error("Failed to delete slide", error);
+      alert("Error deleting slide");
+    }
   };
 
   const handleUpdateHotel = async (e) => {
@@ -158,15 +164,16 @@ const EditHotel = () => {
           ) : null}
 
           <div className="border-2 border-dashed border-[#e1e1e1] p-4 rounded-md">
-            <label htmlFor="logo" className="flex items-center flex-col">
+            <label htmlFor="bgImage" className="flex items-center flex-col">
               <input
+                id="bgImage"
                 type="file"
                 onChange={(e) => setBgImage(e.target.files[0])}
                 className="hidden w-full"
               />
               <CloudUpload size={32} className="text-blue-500 mb-2" />
               <p className="text-sm font-medium">
-                Click or drag logo to upload
+                Click or drag bg image to upload
               </p>
               <p className="text-xs text-gray-400">JPEG, PNG, WEBP, AVIF</p>
             </label>
@@ -236,8 +243,12 @@ const EditHotel = () => {
                 ) : null}
 
                 <div className="border-2 border-dashed border-[#e1e1e1] p-4 rounded-md">
-                  <label htmlFor="logo" className="flex items-center flex-col">
+                  <label
+                    htmlFor={`slide-bg-${index}`}
+                    className="flex items-center flex-col"
+                  >
                     <input
+                      id={`slide-bg-${index}`}
                       type="file"
                       onChange={(e) =>
                         handleSlideChange(index, "bg", e.target.files[0])
@@ -246,7 +257,7 @@ const EditHotel = () => {
                     />
                     <CloudUpload size={32} className="text-blue-500 mb-2" />
                     <p className="text-sm font-medium">
-                      Click or drag logo to upload
+                      Click or drag bg slider to upload
                     </p>
                     <p className="text-xs text-gray-400">
                       JPEG, PNG, WEBP, AVIF
@@ -255,24 +266,35 @@ const EditHotel = () => {
                 </div>
               </div>
 
-              {slides.length > 1 && (
+              {slide._id ? (
                 <button
                   type="button"
-                  onClick={() => removeSlide(index)}
-                  className="mt-2 text-red-600 bg-red-100 underline p-2 rounded-md"
+                  onClick={() => handleDeleteSlide(slide._id)}
+                  className="text-red-600 bg-red-100 p-2 rounded-md"
                 >
-                  <MdDelete size={30}/>
+                  <MdDelete size={20} />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    const updatedSlides = slides.filter((_, i) => i !== index);
+                    setSlides(updatedSlides);
+                  }}
+                  className="text-yellow-600 bg-yellow-100 p-2 rounded-md"
+                >
+                  Remove
                 </button>
               )}
             </div>
           ))}
-          {slides.length < 5 && (
+          {slides.length < 10 && (
             <button
               type="button"
               onClick={addSlide}
               className="text-white hover:underline bg-green-800 p-3 rounded-md text-sm"
             >
-             Click here to Add Slide
+              Click here to Add Slide
             </button>
           )}
         </div>
