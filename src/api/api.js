@@ -56,8 +56,10 @@ export const deleteSlider = (id) => {
 // Location apis
 
 // Add a new location
-export const addDestination = (data) =>
-  axios.post(`${API_URL}/home/location/add`, data);
+export const addDestination = (formData) =>
+  axios.post(`${API_URL}/home/location/add`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
 
 // Get all location
 export const getDestinations = () => axios.get(`${API_URL}/home/location/`);
@@ -67,8 +69,10 @@ export const getDestinationById = (id) =>
   axios.get(`${API_URL}/home/location/${id}`);
 
 // Update location
-export const updateDestination = (id, data) =>
-  axios.put(`${API_URL}/home/location/update/${id}`, data);
+export const updateDestination = (id, formData) =>
+  axios.put(`${API_URL}/home/location/update/${id}`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
 
 // Delete location
 export const deleteDestination = (id) =>
