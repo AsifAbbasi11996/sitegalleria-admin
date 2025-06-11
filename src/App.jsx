@@ -19,6 +19,7 @@ import HomeAbout from "./pages/HomeAbout";
 import RoomManager from "./pages/RoomManager";
 import BanquetManager from "./pages/BanquetManager";
 import About from "./pages/About";
+import DayUseRoom from "./pages/DayUseRoom";
 
 function App() {
   const location = useLocation();
@@ -132,6 +133,7 @@ function App() {
             <Route path="/about-us" element={<About />} />
             <Route path="/rooms" element={<RoomManager />} />
             <Route path="/banquets" element={<BanquetManager />} />
+            <Route path="/day-use-rooms" element={<DayUseRoom />} />
           </Routes>
         </main>
       </div>
