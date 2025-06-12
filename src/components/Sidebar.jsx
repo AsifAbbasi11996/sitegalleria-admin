@@ -293,6 +293,28 @@ export default function Sidebar() {
           >
             Day Use Rooms
           </Link>
+          <Link
+            to="/edit-terms"
+            onClick={handleLinkClick}
+            className={`block py-2 px-3 m-1 rounded transition duration-200 ${
+              location.pathname === "/edit-terms"
+                ? "bg-blue-600"
+                : "hover:bg-gray-700"
+            }`}
+          >
+            Terms and Conditions
+          </Link>
+          <Link
+            to="/edit-policy"
+            onClick={handleLinkClick}
+            className={`block py-2 px-3 m-1 rounded transition duration-200 ${
+              location.pathname === "/edit-policy"
+                ? "bg-blue-600"
+                : "hover:bg-gray-700"
+            }`}
+          >
+            Privacy Policy
+          </Link>
         </nav>
       </div>
     </div>

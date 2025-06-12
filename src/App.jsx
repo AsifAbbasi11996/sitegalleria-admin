@@ -20,6 +20,8 @@ import RoomManager from "./pages/RoomManager";
 import BanquetManager from "./pages/BanquetManager";
 import About from "./pages/About";
 import DayUseRoom from "./pages/DayUseRoom";
+import EditPrivacy from "./pages/EditPrivacy";
+import EditTerms from "./pages/EditTerms";
 
 function App() {
   const location = useLocation();
@@ -129,11 +131,62 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/homepage/hotels" element={<Hotel />} />
-            <Route path="/about-us" element={<About />} />
-            <Route path="/rooms" element={<RoomManager />} />
-            <Route path="/banquets" element={<BanquetManager />} />
-            <Route path="/day-use-rooms" element={<DayUseRoom />} />
+            <Route
+              path="/homepage/hotels"
+              element={
+                <ProtectedRoute>
+                  <Hotel />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/about-us"
+              element={
+                <ProtectedRoute>
+                  <About />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/rooms"
+              element={
+                <ProtectedRoute>
+                  <RoomManager />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/banquets"
+              element={
+                <ProtectedRoute>
+                  <BanquetManager />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/day-use-rooms"
+              element={
+                <ProtectedRoute>
+                  <DayUseRoom />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/edit-terms"
+              element={
+                <ProtectedRoute>
+                  <EditTerms />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/edit-policy"
+              element={
+                <ProtectedRoute>
+                  <EditPrivacy />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </main>
       </div>
