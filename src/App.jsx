@@ -25,7 +25,7 @@ import EditTerms from "./pages/EditTerms";
 
 function App() {
   const location = useLocation();
-  const isLoginPage = location.pathname === "/admin/login";
+  const isLoginPage = location.pathname === "/";
 
   return (
     <div className="flex">
@@ -34,7 +34,7 @@ function App() {
         {!isLoginPage && <Navbar />}
         <main className="md:p-6 p-3">
           <Routes>
-            <Route path="/admin/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
             <Route
               path="/navbar/logo"
               element={

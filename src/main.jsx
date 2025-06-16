@@ -6,7 +6,7 @@ import './index.css'; // Tailwind styles
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename='/admin'>
       <App />
     </BrowserRouter>
   </React.StrictMode>
