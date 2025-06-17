@@ -35,7 +35,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center sm:bg-gray-100 sm:px-4">
+    <div className="h-[93vh] flex items-center justify-center sm:bg-gray-100 sm:px-4">
       <div className="w-full max-w-md bg-white p-8 rounded shadow">
         <h2 className="sm:text-2xl text-xl font-bold text-center mb-6">Admin Login</h2>
         {error && <div className="text-red-500 mb-4">{error}</div>}
