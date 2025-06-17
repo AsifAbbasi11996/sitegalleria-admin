@@ -16,7 +16,7 @@ export default function Navbar() {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("adminToken");
     localStorage.removeItem("adminUsername");
-    window.location.href = "/"; // Or use navigate("/") if you're using react-router
+    window.location.href = "/admin/login"; // Or use navigate("/") if you're using react-router
   };
 
   return (
