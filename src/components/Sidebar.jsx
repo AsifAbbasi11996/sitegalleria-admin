@@ -76,7 +76,7 @@ export default function Sidebar() {
             <button
               onClick={() => setNavbarDropdownOpen(!navbarDropdownOpen)}
               className={`w-full flex justify-between items-center py-2 px-4 mb-2 rounded transition duration-200 ${
-                location.pathname.startsWith("/navbar")
+                location.pathname.startsWith("/admin/navbar")
                   ? "bg-blue-600"
                   : "hover:bg-gray-700"
               }`}
@@ -91,7 +91,7 @@ export default function Sidebar() {
             {navbarDropdownOpen && (
               <div className="ml-4 p-1 bg-gray-800 rounded-md">
                 <Link
-                  to="/navbar/logo"
+                  to="/admin/navbar/logo"
                   onClick={handleLinkClick}
                   className={`block py-2 px-3 m-1 rounded transition duration-200 ${
                     location.pathname === "/navbar/logo"
@@ -102,7 +102,7 @@ export default function Sidebar() {
                   Logo
                 </Link>
                 <Link
-                  to="/navbar/locations"
+                  to="/admin/navbar/locations"
                   onClick={handleLinkClick}
                   className={`block py-2 px-3 m-1 rounded transition duration-200 ${
                     location.pathname === "/navbar/locations"
@@ -120,7 +120,7 @@ export default function Sidebar() {
             <button
               onClick={() => setHomeDropdownOpen(!homeDropdownOpen)}
               className={`w-full flex justify-between items-center py-2 px-4 mb-2 rounded transition duration-200 ${
-                location.pathname.startsWith("/homepage")
+                location.pathname.startsWith("/admin/homepage")
                   ? "bg-blue-600"
                   : "hover:bg-gray-700"
               }`}
@@ -135,10 +135,10 @@ export default function Sidebar() {
             {homeDropdownOpen && (
               <div className="ml-4 p-1 bg-gray-800 rounded-md">
                 <Link
-                  to="/homepage/home-slider"
+                  to="/admin/homepage/home-slider"
                   onClick={handleLinkClick}
                   className={`block py-2 px-3 m-1 rounded transition duration-200 ${
-                    location.pathname === "/homepage/home-slider"
+                    location.pathname === "/admin/homepage/home-slider"
                       ? "bg-blue-600"
                       : "hover:bg-gray-700"
                   }`}
@@ -146,10 +146,10 @@ export default function Sidebar() {
                   Slider Section
                 </Link>
                 <Link
-                  to="/homepage/home-contact"
+                  to="/admin/homepage/home-contact"
                   onClick={handleLinkClick}
                   className={`block py-2 px-3 m-1 rounded transition duration-200 ${
-                    location.pathname === "/homepage/home-contact"
+                    location.pathname === "/admin/homepage/home-contact"
                       ? "bg-blue-600"
                       : "hover:bg-gray-700"
                   }`}
@@ -157,10 +157,10 @@ export default function Sidebar() {
                   Contact Section
                 </Link>
                 <Link
-                  to="/homepage/home-about"
+                  to="/admin/homepage/home-about"
                   onClick={handleLinkClick}
                   className={`block py-2 px-3 m-1 rounded transition duration-200 ${
-                    location.pathname === "/homepage/home-about"
+                    location.pathname === "/admin/homepage/home-about"
                       ? "bg-blue-600"
                       : "hover:bg-gray-700"
                   }`}
@@ -168,10 +168,10 @@ export default function Sidebar() {
                   About Section
                 </Link>
                 <Link
-                  to="/homepage/famous-hotel-slider"
+                  to="/admin/homepage/famous-hotel-slider"
                   onClick={handleLinkClick}
                   className={`block py-2 px-3 m-1 rounded transition duration-200 ${
-                    location.pathname === "/homepage/famous-hotel-slider"
+                    location.pathname === "/admin/homepage/famous-hotel-slider"
                       ? "bg-blue-600"
                       : "hover:bg-gray-700"
                   }`}
@@ -179,10 +179,10 @@ export default function Sidebar() {
                   Famous Hotel Section
                 </Link>
                 <Link
-                  to="/homepage/hotels"
+                  to="/admin/homepage/hotels"
                   onClick={handleLinkClick}
                   className={`block py-2 px-3 m-1 rounded transition duration-200 ${
-                    location.pathname === "/homepage/hotels"
+                    location.pathname === "/admin/homepage/hotels"
                       ? "bg-blue-600"
                       : "hover:bg-gray-700"
                   }`}
@@ -190,10 +190,10 @@ export default function Sidebar() {
                   Hotels Section
                 </Link>
                 <Link
-                  to="/homepage/banner"
+                  to="/admin/homepage/banner"
                   onClick={handleLinkClick}
                   className={`block py-2 px-3 m-1 rounded transition duration-200 ${
-                    location.pathname === "/homepage/banner"
+                    location.pathname === "/admin/homepage/banner"
                       ? "bg-blue-600"
                       : "hover:bg-gray-700"
                   }`}
@@ -209,7 +209,7 @@ export default function Sidebar() {
             <button
               onClick={() => setHotelDropdownOpen(!hotelDropdownOpen)}
               className={`w-full flex justify-between items-center py-2 px-4 mb-2 rounded transition duration-200 ${
-                location.pathname.startsWith("/hotelpage")
+                location.pathname.startsWith("/admin/hotelpage")
                   ? "bg-blue-600"
                   : "hover:bg-gray-700"
               }`}
@@ -224,10 +224,10 @@ export default function Sidebar() {
             {hotelDropdownOpen && (
               <div className="ml-4 p-1 bg-gray-800 rounded-md">
                 <Link
-                  to="/hotelpage/all-hotels"
+                  to="/admin/hotelpage/all-hotels"
                   onClick={handleLinkClick}
                   className={`block py-2 px-3 m-1 rounded transition duration-200 ${
-                    location.pathname === "/hotelpage/all-hotels"
+                    location.pathname === "/admin/hotelpage/all-hotels"
                       ? "bg-blue-600"
                       : "hover:bg-gray-700"
                   }`}
@@ -235,10 +235,10 @@ export default function Sidebar() {
                   All Hotels
                 </Link>
                 <Link
-                  to="/hotelpage/add-hotel"
+                  to="/admin/hotelpage/add-hotel"
                   onClick={handleLinkClick}
                   className={`block py-2 px-3 m-1 rounded transition duration-200 ${
-                    location.pathname === "/hotelpage/add-hotel"
+                    location.pathname === "/admin/hotelpage/add-hotel"
                       ? "bg-blue-600"
                       : "hover:bg-gray-700"
                   }`}
@@ -250,10 +250,10 @@ export default function Sidebar() {
           </div>
 
           <Link
-            to="/about-us"
+            to="/admin/about-us"
             onClick={handleLinkClick}
             className={`block py-2 px-3 m-1 rounded transition duration-200 ${
-              location.pathname === "/about-us"
+              location.pathname === "/admin/about-us"
                 ? "bg-blue-600"
                 : "hover:bg-gray-700"
             }`}
@@ -261,10 +261,10 @@ export default function Sidebar() {
             About Us
           </Link>
           <Link
-            to="/rooms"
+            to="/admin/rooms"
             onClick={handleLinkClick}
             className={`block py-2 px-3 m-1 rounded transition duration-200 ${
-              location.pathname === "/rooms"
+              location.pathname === "/admin/rooms"
                 ? "bg-blue-600"
                 : "hover:bg-gray-700"
             }`}
@@ -272,10 +272,10 @@ export default function Sidebar() {
             Rooms
           </Link>
           <Link
-            to="/banquets"
+            to="/admin/banquets"
             onClick={handleLinkClick}
             className={`block py-2 px-3 m-1 rounded transition duration-200 ${
-              location.pathname === "/banquets"
+              location.pathname === "/admin/banquets"
                 ? "bg-blue-600"
                 : "hover:bg-gray-700"
             }`}
@@ -283,10 +283,10 @@ export default function Sidebar() {
             Banquets
           </Link>
           <Link
-            to="/day-use-rooms"
+            to="/admin/day-use-rooms"
             onClick={handleLinkClick}
             className={`block py-2 px-3 m-1 rounded transition duration-200 ${
-              location.pathname === "/day-use-rooms"
+              location.pathname === "/admin/day-use-rooms"
                 ? "bg-blue-600"
                 : "hover:bg-gray-700"
             }`}
@@ -294,10 +294,10 @@ export default function Sidebar() {
             Day Use Rooms
           </Link>
           <Link
-            to="/edit-terms"
+            to="/admin/edit-terms"
             onClick={handleLinkClick}
             className={`block py-2 px-3 m-1 rounded transition duration-200 ${
-              location.pathname === "/edit-terms"
+              location.pathname === "/admin/edit-terms"
                 ? "bg-blue-600"
                 : "hover:bg-gray-700"
             }`}
@@ -305,10 +305,10 @@ export default function Sidebar() {
             Terms and Conditions
           </Link>
           <Link
-            to="/edit-policy"
+            to="/admin/edit-policy"
             onClick={handleLinkClick}
             className={`block py-2 px-3 m-1 rounded transition duration-200 ${
-              location.pathname === "/edit-policy"
+              location.pathname === "/admin/edit-policy"
                 ? "bg-blue-600"
                 : "hover:bg-gray-700"
             }`}

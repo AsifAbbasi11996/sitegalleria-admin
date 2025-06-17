@@ -25,7 +25,7 @@ import EditTerms from "./pages/EditTerms";
 
 function App() {
   const location = useLocation();
-  const isLoginPage = location.pathname === "/admin/login";
+  const isLoginPage = location.pathname === "/admin/";
 
   return (
     <div className="flex">
@@ -34,9 +34,9 @@ function App() {
         {!isLoginPage && <Navbar />}
         <main className="md:p-6 p-3">
           <Routes>
-            <Route path="/admin/login" element={<Login />} />
+            <Route path="/admin/" element={<Login />} />
             <Route
-              path="/navbar/logo"
+              path="/admin/navbar/logo"
               element={
                 <ProtectedRoute>
                   <LogoManager />
@@ -44,7 +44,7 @@ function App() {
               }
             />
             <Route
-              path="/homepage/home-slider"
+              path="/admin/homepage/home-slider"
               element={
                 <ProtectedRoute>
                   <HomeSlider />
@@ -52,7 +52,7 @@ function App() {
               }
             />
             <Route
-              path="/homepage/home-contact"
+              path="/admin/homepage/home-contact"
               element={
                 <ProtectedRoute>
                   <HomeContact />
@@ -60,7 +60,7 @@ function App() {
               }
             />
             <Route
-              path="/homepage/home-about"
+              path="/admin/homepage/home-about"
               element={
                 <ProtectedRoute>
                   <HomeAbout />
@@ -68,7 +68,7 @@ function App() {
               }
             />
             <Route
-              path="/homepage/famous-hotel-slider"
+              path="/admin/homepage/famous-hotel-slider"
               element={
                 <ProtectedRoute>
                   <SliderManager />
@@ -76,7 +76,7 @@ function App() {
               }
             />
             <Route
-              path="/navbar/locations"
+              path="/admin/navbar/locations"
               element={
                 <ProtectedRoute>
                   <LocationManager />
@@ -84,7 +84,7 @@ function App() {
               }
             />
             <Route
-              path="/homepage/banner"
+              path="/admin/homepage/banner"
               element={
                 <ProtectedRoute>
                   <BannerManager />
@@ -92,7 +92,7 @@ function App() {
               }
             />
             <Route
-              path="/homepage/hotels/add"
+              path="/admin/homepage/hotels/add"
               element={
                 <ProtectedRoute>
                   <AddHotel />
@@ -100,7 +100,7 @@ function App() {
               }
             />
             <Route
-              path="/homepage/hotels/edit/:id"
+              path="/admin/homepage/hotels/edit/:id"
               element={
                 <ProtectedRoute>
                   <EditHotel />
@@ -108,7 +108,7 @@ function App() {
               }
             />
             <Route
-              path="/hotelpage/all-hotels"
+              path="/admin/hotelpage/all-hotels"
               element={
                 <ProtectedRoute>
                   <AllHotels />
@@ -116,7 +116,7 @@ function App() {
               }
             />
             <Route
-              path="/hotelpage/add-hotel"
+              path="/admin/hotelpage/add-hotel"
               element={
                 <ProtectedRoute>
                   <AddNewHotel />
@@ -124,7 +124,7 @@ function App() {
               }
             />
             <Route
-              path="/hotelpage/edit-hotel/:id"
+              path="/admin/hotelpage/edit-hotel/:id"
               element={
                 <ProtectedRoute>
                   <EditNewHotel />
@@ -132,7 +132,7 @@ function App() {
               }
             />
             <Route
-              path="/homepage/hotels"
+              path="/admin/homepage/hotels"
               element={
                 <ProtectedRoute>
                   <Hotel />
@@ -140,7 +140,7 @@ function App() {
               }
             />
             <Route
-              path="/about-us"
+              path="/admin/about-us"
               element={
                 <ProtectedRoute>
                   <About />
@@ -148,7 +148,7 @@ function App() {
               }
             />
             <Route
-              path="/rooms"
+              path="/admin/rooms"
               element={
                 <ProtectedRoute>
                   <RoomManager />
@@ -156,7 +156,7 @@ function App() {
               }
             />
             <Route
-              path="/banquets"
+              path="/admin/banquets"
               element={
                 <ProtectedRoute>
                   <BanquetManager />
@@ -164,7 +164,7 @@ function App() {
               }
             />
             <Route
-              path="/day-use-rooms"
+              path="/admin/day-use-rooms"
               element={
                 <ProtectedRoute>
                   <DayUseRoom />
@@ -172,7 +172,7 @@ function App() {
               }
             />
             <Route
-              path="/edit-terms"
+              path="/admin/edit-terms"
               element={
                 <ProtectedRoute>
                   <EditTerms />
@@ -180,7 +180,7 @@ function App() {
               }
             />
             <Route
-              path="/edit-policy"
+              path="/admin/edit-policy"
               element={
                 <ProtectedRoute>
                   <EditPrivacy />
