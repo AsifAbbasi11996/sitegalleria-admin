@@ -8,6 +8,7 @@ import {
 import { CloudUpload } from "lucide-react";
 import { HiPencil } from "react-icons/hi2";
 import { MdDelete } from "react-icons/md";
+import toast from "react-hot-toast";
 
 const HomeContact = () => {
   const [contacts, setContacts] = useState([]);
@@ -60,14 +61,17 @@ const HomeContact = () => {
     try {
       if (editId) {
         await updateHomeContact(editId, formData);
+        toast.success("Contact updated successfully", { duration: 5000 });
       } else {
         await addHomeContact(formData);
+        toast.success("Contact added successfully", { duration: 5000 });
       }
 
       resetForm();
       fetchContacts();
     } catch (err) {
       console.error("Failed to submit form", err);
+      toast.error("Error in submitting form", { duration: 5000 });
     }
   };
 
@@ -87,9 +91,11 @@ const HomeContact = () => {
     if (window.confirm("Are you sure you want to delete this contact?")) {
       try {
         await deleteHomeContact(id);
+        toast.success("Contact deleted successfully", { duration: 5000 });
         fetchContacts();
       } catch (err) {
         console.error("Delete failed", err);
+        toast.error("Error in deleting contact", { duration: 5000 });
       }
     }
   };
@@ -195,7 +201,10 @@ const HomeContact = () => {
       <h3 className="text-lg font-semibold mb-2">All Home Contacts</h3>
       <div className="">
         {contacts.map((contact) => (
-          <div key={contact._id} className="border border-[#e4e4e4] p-4 rounded shadow">
+          <div
+            key={contact._id}
+            className="border border-[#e4e4e4] p-4 rounded shadow"
+          >
             <img
               src={contact.bgImage}
               alt=""
@@ -212,13 +221,13 @@ const HomeContact = () => {
                 onClick={() => handleEdit(contact)}
                 className="text-green-500 hover:text-green-700 bg-green-100 p-2 rounded-md cursor-pointer"
               >
-                <HiPencil size={20}/>
+                <HiPencil size={20} />
               </button>
               <button
                 onClick={() => handleDelete(contact._id)}
-               className="text-red-500 hover:text-red-700 bg-red-100 p-2 rounded-md cursor-pointer"
+                className="text-red-500 hover:text-red-700 bg-red-100 p-2 rounded-md cursor-pointer"
               >
-                <MdDelete size={20}/>
+                <MdDelete size={20} />
               </button>
             </div>
           </div>

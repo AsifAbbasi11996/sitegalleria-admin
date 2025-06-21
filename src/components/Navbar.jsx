@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { LogOut } from "lucide-react";
 import logo from "../../public/logo.png";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const [profileName, setProfileName] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUsername = localStorage.getItem("adminUsername");
@@ -12,12 +15,19 @@ export default function Navbar() {
     }
   }, []);
 
-  const handleLogout = () => {
+ const handleLogout = () => {
+  try {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("adminToken");
     localStorage.removeItem("adminUsername");
-    window.location.href = "/admin/"; // Or use navigate("/") if you're using react-router
-  };
+    toast.success("Logged out successfully", { duration: 5000 });
+    navigate("/admin/"); // navigate must be called as a function
+  } catch (error) {
+    console.error("Logout error:", error);
+    toast.error("Failed to log out. Please try again.", { duration: 5000 });
+  }
+};
+
 
   return (
     <nav className="sticky top-0 z-10 bg-gray-800 text-white p-4 flex items-center md:justify-between justify-end-safe shadow">

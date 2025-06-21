@@ -8,6 +8,7 @@ import {
 import { CloudUpload } from "lucide-react"; // or use react-icons
 import { HiPencil } from "react-icons/hi2";
 import { MdDelete } from "react-icons/md";
+import toast from "react-hot-toast";
 
 const HomeAbout = () => {
   const [preview, setPreview] = useState(null);
@@ -57,17 +58,25 @@ const HomeAbout = () => {
       formData.append("image", image);
     }
 
-    if (editId) {
-      await updateHomeAbout(editId, formData);
-    } else {
-      await addHomeAbout(formData);
-    }
+    try {
+      if (editId) {
+        await updateHomeAbout(editId, formData);
+        toast.success("About updated succssfully", { duration: 5000 });
+      } else {
+        await addHomeAbout(formData);
+        toast.success("About added succssfully", { duration: 5000 });
+      }
 
-    await fetchAbouts();
-    resetForm();
+      await fetchAbouts();
+      resetForm();
+    } catch (error) {
+      console.error("Error submitting form: ", error);
+      toast.error("Error submitting form ", { duration: 5000 });
+    }
   };
 
   const handleEdit = (about) => {
+    window.scrollTo(0, 0);
     setEditId(about._id);
     setTitle(about.title);
     setHeading(about.heading);
@@ -77,9 +86,14 @@ const HomeAbout = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Delete this item?")) return;
-    await deleteHomeAbout(id);
-    fetchAbouts();
+    try {
+      if (!window.confirm("Delete this item?")) return;
+      await deleteHomeAbout(id);
+      toast.success("About deleted successfully", { duration: 5000 });
+      fetchAbouts();
+    } catch (error) {
+      toast.error("Error in deleting about", { duration: 5000 });
+    }
   };
 
   return (
@@ -185,7 +199,10 @@ const HomeAbout = () => {
             <div className="flex-1">
               <h3 className="text-lg font-bold">{about.heading}</h3>
               <p className="text-sm text-gray-600 mb-2">{about.description}</p>
-              <p>Link : <span className="text-blue-600 text-sm">{about.link}</span></p>
+              <p>
+                Link :{" "}
+                <span className="text-blue-600 text-sm">{about.link}</span>
+              </p>
               <div className="flex gap-2 mt-2">
                 <button
                   onClick={() => handleEdit(about)}

@@ -1,24 +1,30 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import PolicyEditor from './PolicyEditor';
-import { LockIcon } from 'lucide-react'; // Optional icon
-import { API_URL } from '../utils/baseUrl';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import PolicyEditor from "./PolicyEditor";
+import { LockIcon } from "lucide-react"; // Optional icon
+import { API_URL } from "../utils/baseUrl";
+import toast from "react-hot-toast";
 
 function EditPrivacy() {
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState("");
 
   useEffect(() => {
     axios
       .get(`${API_URL}/policy/privacy`)
-      .then(res => setContent(res.data.content))
-      .catch(err => console.error('Error fetching privacy policy:', err));
+      .then((res) => setContent(res.data.content))
+      .catch((err) => console.error("Error fetching privacy policy:", err));
   }, []);
 
   const handleSave = () => {
     axios
       .put(`${API_URL}/policy/privacy`, { content })
-      .then(() => alert('✅ Privacy Policy updated successfully'))
-      .catch(err => console.error('Error saving privacy policy:', err));
+      .then(() =>
+        toast.success("Privacy Policy updated successfully", { duration: 5000 })
+      )
+      .catch((err) => {
+        console.error("Error saving privacy policy:", err);
+        toast.error("Failed to update Privacy Policy", { duration: 5000 });
+      });
   };
 
   return (
@@ -28,7 +34,9 @@ function EditPrivacy() {
           <LockIcon className="text-blue-600 w-8 h-8" />
           <div>
             <h2 className="text-2xl font-bold">Edit Privacy Policy</h2>
-            <p className="text-gray-500 text-sm">Update and manage your privacy policy content.</p>
+            <p className="text-gray-500 text-sm">
+              Update and manage your privacy policy content.
+            </p>
           </div>
         </div>
 

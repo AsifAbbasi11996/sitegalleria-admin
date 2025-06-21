@@ -8,6 +8,7 @@ import {
 import { MdDelete } from "react-icons/md";
 import { HiPencil } from "react-icons/hi2";
 import { CloudUpload } from "lucide-react";
+import toast from "react-hot-toast";
 
 const DayUseRoom = () => {
   const [formData, setFormData] = useState({
@@ -109,10 +110,10 @@ const DayUseRoom = () => {
 
       if (editId) {
         await updateDayUseRoom(editId, data);
-        alert("Room updated successfully!");
+        toast.success("Day use room updated successfully!", { duration: 5000 });
       } else {
         await addDayUseRoom(data);
-        alert("Room added successfully!");
+        toast.success("Day use room added successfully!", { duration: 5000 });
       }
 
       setFormData({
@@ -122,10 +123,11 @@ const DayUseRoom = () => {
       });
       setImage(null);
       setEditId(null);
+      setPreview(null);
       fetchRooms();
     } catch (error) {
       console.error("Error submitting form:", error);
-      alert("Failed to submit");
+      toast.error("Error in submitting form", { duration: 5000 });
     }
   };
 
@@ -141,9 +143,21 @@ const DayUseRoom = () => {
     window.scrollTo(0, 0);
   };
 
+  const handleCancel = () => {
+    setFormData({
+      title: "",
+      mainHeading: "",
+      subSections: [{ subHeading: "", points: [""] }],
+    });
+    setImage(null);
+    setPreview(null);
+    setEditId(null);
+  };
+
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this room?")) return;
     await deleteDayUseRoom(id);
+    toast.success("Day use Room deleted successfully", { duration: 5000 });
     fetchRooms();
   };
 
@@ -276,12 +290,24 @@ const DayUseRoom = () => {
           </label>
         </div>
 
-        <button
-          type="submit"
-          className="bg-purple-600 text-white px-6 py-2 rounded sm:text-base text-sm"
-        >
-          {editId ? "Update" : "Submit"}
-        </button>
+        <div className="flex item-center gap-4">
+          <button
+            type="submit"
+            className="bg-purple-600 text-white px-6 py-2 rounded sm:text-base text-sm"
+          >
+            {editId ? "Update" : "Submit"}
+          </button>
+          {editId ? (
+            <button
+              className="px-6 py-2 rounded bg-red-600 text-white sm:text-base text-sm"
+              onClick={handleCancel}
+            >
+              Cancel
+            </button>
+          ) : (
+            ""
+          )}
+        </div>
       </form>
 
       <div className="mt-10">
@@ -294,7 +320,9 @@ const DayUseRoom = () => {
             >
               <div className="flex sm:flex-row flex-col gap-4">
                 <div>
-                  <h4 className="font-bold lg:text-xl text-base mb-2">{room.title}</h4>
+                  <h4 className="font-bold lg:text-xl text-base mb-2">
+                    {room.title}
+                  </h4>
                   <p className="text-sm text-gray-600 mb-2">
                     {room.mainHeading}
                   </p>

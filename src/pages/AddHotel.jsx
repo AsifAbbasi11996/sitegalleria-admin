@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CloudUpload, X } from "lucide-react";
 import { addHotel } from "../api/homehotelApi"; // import your API helper
+import toast from "react-hot-toast";
 
 const MAX_SLIDES = 10; // updated max slides
 
@@ -67,7 +68,7 @@ const AddHotel = () => {
     try {
       setLoading(true);
       await addHotel(formData);
-      alert("Hotel added successfully!");
+      toast.success("Hotel added successfully!", { duration: 5000 });
 
       // Reset form
       setDescription("");
@@ -77,7 +78,7 @@ const AddHotel = () => {
       setBgImagePreview(null);
       setSlides([{ title: "", desc: "", link: "", bg: null, preview: null }]);
     } catch (err) {
-      alert("Error: " + (err.response?.data?.message || err.message));
+      toast.error("Error in adding hotel ", { duration: 5000 });
     } finally {
       setLoading(false);
     }

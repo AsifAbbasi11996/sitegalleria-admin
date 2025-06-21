@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { deleteSlide, getHotelById, updateHotel } from "../api/homehotelApi";
 import { CloudUpload } from "lucide-react";
 import { MdDelete } from "react-icons/md";
+import toast from "react-hot-toast";
 
 const EditHotel = () => {
   const { id } = useParams();
@@ -51,11 +52,16 @@ const EditHotel = () => {
   };
 
   const addSlide = () => {
-    if (slides.length < 10) {
-      setSlides([
-        ...slides,
-        { title: "", desc: "", link: "", bg: null, existingBg: "" },
-      ]);
+    try {
+      if (slides.length < 10) {
+        setSlides([
+          ...slides,
+          { title: "", desc: "", link: "", bg: null, existingBg: "" },
+        ]);
+      }
+      toast.success("Slide added successfully", { duration: 5000 });
+    } catch (error) {
+      toast.error("Error adding slide", { duration: 5000 });
     }
   };
 
@@ -63,10 +69,10 @@ const EditHotel = () => {
     try {
       await deleteSlide(id, slideId);
       setSlides(slides.filter((s) => s._id !== slideId)); // Update local state
-      alert("Slide deleted successfully");
+      toast.success("Slide deleted successfully", { duration: 5000 });
     } catch (error) {
       console.error("Failed to delete slide", error);
-      alert("Error deleting slide");
+      toast.error("Error deleting slide", { duration: 5000 });
     }
   };
 
@@ -88,10 +94,10 @@ const EditHotel = () => {
 
     try {
       await updateHotel(id, formData);
-      alert("Hotel updated successfully!");
+      toast.success("Hotel updated successfully!", { duration: 5000 });
     } catch (error) {
       console.error("Failed to update hotel:", error);
-      alert("Error updating hotel");
+      toast.error("Error updating hotel", { duration: 5000 });
     }
   };
 
@@ -120,13 +126,13 @@ const EditHotel = () => {
             <img
               src={URL.createObjectURL(logo)}
               alt="New Logo Preview"
-              className="w-24 h-24 object-cover mb-2 invert"
+              className="w-24 h-24 object-contain mb-2"
             />
           ) : existingLogo ? (
             <img
               src={existingLogo}
               alt="Existing Logo"
-              className="w-24 h-24 object-cover mb-2 invert"
+              className="w-24 h-24 object-contain mb-2"
             />
           ) : null}
 

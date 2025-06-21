@@ -1,24 +1,34 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import PolicyEditor from './PolicyEditor';
-import { ShieldCheckIcon } from 'lucide-react'; // Optional, or use any icon library
-import { API_URL } from '../utils/baseUrl';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import PolicyEditor from "./PolicyEditor";
+import { ShieldCheckIcon } from "lucide-react"; // Optional, or use any icon library
+import { API_URL } from "../utils/baseUrl";
+import toast from "react-hot-toast";
 
 function EditTerms() {
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState("");
 
   useEffect(() => {
     axios
       .get(`${API_URL}/policy/terms`)
-      .then(res => setContent(res.data.content))
-      .catch(err => console.error('Error fetching terms:', err));
+      .then((res) => setContent(res.data.content))
+      .catch((err) => console.error("Error fetching terms:", err));
   }, []);
 
   const handleSave = () => {
     axios
       .put(`${API_URL}/policy/terms`, { content })
-      .then(() => alert('✅ Terms and Conditions updated successfully'))
-      .catch(err => console.error('Error saving terms:', err));
+      .then(() =>
+        toast.success("Terms and Conditions updated successfully", {
+          duration: 5000,
+        })
+      )
+      .catch((err) => {
+        console.error("Error saving terms:", err);
+        toast.error("Failed to update Terms and Conditions", {
+          duration: 5000,
+        });
+      });
   };
 
   return (
@@ -28,7 +38,9 @@ function EditTerms() {
           <ShieldCheckIcon className="text-blue-600 w-8 h-8" />
           <div>
             <h2 className="text-2xl font-bold">Edit Terms & Conditions</h2>
-            <p className="text-gray-500 text-sm">Update and manage your site's terms easily.</p>
+            <p className="text-gray-500 text-sm">
+              Update and manage your site's terms easily.
+            </p>
           </div>
         </div>
 

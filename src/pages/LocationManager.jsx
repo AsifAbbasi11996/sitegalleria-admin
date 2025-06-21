@@ -8,6 +8,7 @@ import {
 import { HiPencil } from "react-icons/hi2";
 import { MdDelete } from "react-icons/md";
 import { CloudUpload } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function LocationManager() {
   const [name, setName] = useState("");
@@ -48,9 +49,11 @@ export default function LocationManager() {
     try {
       if (editId) {
         await updateDestination(editId, formData); // multipart update
+        toast.success("Location updated successfully", { duration: 5000 });
         setSuccessMsg("Location updated successfully ✅");
       } else {
         await addDestination(formData); // multipart add
+        toast.success("Location added successfully", { duration: 5000 });
         setSuccessMsg("Location added successfully ✅");
       }
 
@@ -61,30 +64,32 @@ export default function LocationManager() {
       fetchDestinations();
       setTimeout(() => setSuccessMsg(""), 3000);
     } catch (err) {
-      console.error("Error saving destination:", err.message);
+      console.error("Error saving location:", err.message);
+      toast.error("Error adding location", { duration: 5000 });
     }
   };
 
   const handleEdit = (destination) => {
-  setEditId(destination._id);
-  setName(destination.destinationName);
-  setPreview(destination.image);
-  setImage(null);
+    setEditId(destination._id);
+    setName(destination.destinationName);
+    setPreview(destination.image);
+    setImage(null);
 
-  // Scroll to top smoothly
-  window.scrollTo({ top: 0, behavior: "smooth" });
-};
-
+    // Scroll to top smoothly
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this location?")) {
       try {
         await deleteDestination(id);
+        toast.success("Location deleted successfully", { duration: 5000 });
         setSuccessMsg("Location deleted successfully ❌");
         fetchDestinations();
         setTimeout(() => setSuccessMsg(""), 3000);
       } catch (err) {
         console.error("Error deleting location:", err.message);
+        toast.error("Error deleting location", { duration: 5000 });
       }
     }
   };

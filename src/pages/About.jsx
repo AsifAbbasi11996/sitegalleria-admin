@@ -10,6 +10,7 @@ import {
 import { CloudUpload } from "lucide-react";
 import { MdDelete } from "react-icons/md";
 import { HiPencil } from "react-icons/hi";
+import toast from "react-hot-toast";
 
 const About = () => {
   const [about, setAbout] = useState(null);
@@ -49,19 +50,23 @@ const About = () => {
 
     try {
       await updateAbout(formData);
+      toast.success("About page updated successfully", { duration: 5000 });
       fetchAbout();
       setEditing(false);
     } catch (err) {
       console.error(err);
+      toast.error("Error in updating about page", { duration: 5000 });
     }
   };
 
   const handleDelete = async () => {
     try {
       await deleteAbout();
+      toast.success("Deleted successfully", { duration: 5000 });
       setAbout(null);
     } catch (err) {
       console.error(err);
+      toast.error("Error in deleting About page", { duration: 5000 });
     }
   };
 
@@ -73,31 +78,42 @@ const About = () => {
         service: newService.service,
       };
       await addService(body);
+      toast.success("Service added successfully", { duration: 5000 });
       setNewService({ place: "", description: "", service: [""] });
       fetchAbout();
     } catch (err) {
       console.error(err);
+      toast.error("Service not added", { duration: 5000 });
     }
   };
 
   const handleDeleteService = async (id) => {
     try {
       await deleteService(id);
+      toast.success("Service deleted successfully", { duration: 5000 });
       fetchAbout();
     } catch (err) {
       console.error(err);
+      toast.error("Error in deleting service", { duration: 5000 });
     }
   };
 
   const handleUpdateService = async (id) => {
     try {
       await updateService(id, newService);
+      toast.success("Service updated successfully", { duration: 5000 });
       setNewService({ place: "", description: "", service: [""] });
       setEditingServiceId(null);
       fetchAbout();
     } catch (err) {
       console.error(err);
+      toast.error("Error in updating service", { duration: 5000 });
     }
+  };
+
+  const handleCancelServiceEdit = () => {
+    setEditingServiceId(null);
+    setNewService({ place: "", description: "", service: [""] });
   };
 
   const handleServiceChange = (index, value) => {
@@ -378,12 +394,17 @@ const About = () => {
         <h2 className="text-xl font-bold mb-4">Services</h2>
         <div className="grid sm:grid-cols-2 grid-cols-1 gap-4 sm:space-y-4">
           {about.services?.map((s) => (
-            <div key={s._id} className="border border-[#e2e2e2] p-4 rounded shadow">
+            <div
+              key={s._id}
+              className="border border-[#e2e2e2] p-4 rounded shadow"
+            >
               <p className="font-bold">{s.place}</p>
               <p className="sm:text-base text-sm">{s.description}</p>
               <ul className="list-disc pl-5">
                 {s.service.map((item, idx) => (
-                  <li className="sm:text-base text-sm" key={idx}>{item}</li>
+                  <li className="sm:text-base text-sm" key={idx}>
+                    {item}
+                  </li>
                 ))}
               </ul>
               <div className="space-x-2 mt-2">
@@ -394,13 +415,13 @@ const About = () => {
                   }}
                   className="bg-green-100 text-green-500 p-2 rounded-md"
                 >
-                  <HiPencil size={20}/>
+                  <HiPencil size={20} />
                 </button>
                 <button
                   onClick={() => handleDeleteService(s._id)}
                   className="bg-red-100 text-red-500 p-2 rounded-md"
                 >
-                  <MdDelete size={20}/>
+                  <MdDelete size={20} />
                 </button>
               </div>
             </div>
@@ -418,6 +439,7 @@ const About = () => {
             onChange={(e) =>
               setNewService({ ...newService, place: e.target.value })
             }
+            required
           />
           <textarea
             className="border border-[#e2e2e2] rounded-md mt-1 outline-0 p-2 w-full h-40 sm:text-base text-sm"
@@ -426,6 +448,7 @@ const About = () => {
             onChange={(e) =>
               setNewService({ ...newService, description: e.target.value })
             }
+            required
           />
           {newService.service.map((item, index) => (
             <input
@@ -434,6 +457,7 @@ const About = () => {
               placeholder={`Service ${index + 1}`}
               value={item}
               onChange={(e) => handleServiceChange(index, e.target.value)}
+              required
             />
           ))}
           <button
@@ -442,17 +466,25 @@ const About = () => {
           >
             Add More
           </button>
-          <div>
+          <div className="flex items-center gap-4">
             <button
               onClick={
                 editingServiceId
                   ? () => handleUpdateService(editingServiceId)
                   : handleAddService
               }
-              className="bg-green-600 text-white px-4 py-2 mt-2"
+              className="bg-green-600 text-white px-4 py-2 sm:text-base text-sm"
             >
               {editingServiceId ? "Update Service" : "Add Service"}
             </button>
+            {editingServiceId && (
+              <button
+                onClick={handleCancelServiceEdit}
+                className="bg-red-500 text-white px-4 py-2 sm:text-base text-sm"
+              >
+                Cancel
+              </button>
+            )}
           </div>
         </div>
       </div>

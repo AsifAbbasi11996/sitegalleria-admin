@@ -10,6 +10,7 @@ import {
 import { HiPencil } from "react-icons/hi2";
 import { MdDelete } from "react-icons/md";
 import { CloudUpload } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function SliderManager() {
   const [sliderData, setSliderData] = useState(null);
@@ -54,36 +55,63 @@ export default function SliderManager() {
     if (imageWithName) formData.append("imageWithName", imageWithName);
     formData.append("link", link);
 
-    if (editImageId) {
-      await updateHotelImageByImageId(editImageId, sliderData._id, formData);
-    } else {
-      await addMoreHotelImages(sliderData._id, formData);
-    }
+    try {
+      if (editImageId) {
+        await updateHotelImageByImageId(editImageId, sliderData._id, formData);
+        toast.success("Slider image updated successfully", { duration: 5000 });
+      } else {
+        await addMoreHotelImages(sliderData._id, formData);
+        toast.success("Slider image added successfully", { duration: 5000 });
+      }
 
-    await fetchSlider();
-    resetForm();
+      await fetchSlider();
+      resetForm();
+    } catch (error) {
+      toast.error("Error submitting form", { duration: 5000 });
+    }
   };
 
   const handleUpdateHeadingQuote = async () => {
-    if (!sliderData?._id) return;
+    console.log(sliderData._id)
+    try {
+      if (!sliderData?._id) return;
+      const formData = new FormData();
+      formData.append("heading", heading);
+      formData.append("quote", quote);
 
-    const formData = new FormData();
-    formData.append("heading", heading);
-    formData.append("quote", quote);
-
-    await updateSlider(sliderData._id, formData);
-    await fetchSlider();
+      await updateSlider(sliderData._id, formData);
+      toast.success("Header and quote updated successfully", {
+        duration: 5000,
+      });
+      await fetchSlider();
+    } catch (error) {
+      toast.error("Error updating header and quote", { duration: 5000 });
+    }
   };
 
   const handleDeleteImage = async (imgId) => {
-    await deleteImageFromHotelImage(sliderData._id, imgId);
-    await fetchSlider();
+    try {
+      await deleteImageFromHotelImage(sliderData._id, imgId);
+      toast.success("Image deleted successfully", { duration: 5000 });
+      await fetchSlider();
+    } catch (error) {
+      toast.error("Error in Image deleting", { duration: 5000 });
+    }
   };
 
   const handleDeleteSlider = async () => {
-    await deleteSlider(sliderData._id);
-    setSliderData(null);
-    setImages([]);
+    try {
+      await deleteSlider(sliderData._id);
+      toast.success("Slider deleted successfully", { duration: 5000 });
+      setSliderData(null);
+      setImages([]);
+    } catch (error) {
+      toast.error("Error deleting slider", { duration: 5000 });
+    }
+  };
+
+  const handleCancel = async () => {
+    resetForm();
   };
 
   return (
@@ -169,7 +197,7 @@ export default function SliderManager() {
                 <img
                   src={preview2}
                   alt="Preview"
-                  className="mt-2 w-32 h-20 object-contain invert rounded shadow"
+                  className="mt-2 w-32 h-20 object-contain rounded shadow"
                 />
               ) : (
                 <>
@@ -194,7 +222,10 @@ export default function SliderManager() {
 
           <div className="flex flex-col gap-4">
             <div className="flex flex-col flex-1">
-              <label htmlFor="" className="mb-1 font-medium text-gray-600 md:text-base text-sm">
+              <label
+                htmlFor=""
+                className="mb-1 font-medium text-gray-600 md:text-base text-sm"
+              >
                 Link
               </label>
               <input
@@ -212,13 +243,23 @@ export default function SliderManager() {
             >
               {editImageId ? "Update" : "Add"}
             </button>
+            {editImageId && (
+              <button
+                onClick={handleCancel}
+                className="md:text-base text-sm bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition"
+              >
+                Cancel
+              </button>
+            )}
           </div>
         </form>
       </section>
 
       {/* Images List */}
       <section className="bg-white shadow rounded p-6">
-        <h3 className="md:text-xl text-lg font-semibold text-gray-700 mb-4">All Hotel Images</h3>
+        <h3 className="md:text-xl text-lg font-semibold text-gray-700 mb-4">
+          All Hotel Images
+        </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {images?.map((img) => (
             <div
@@ -235,7 +276,7 @@ export default function SliderManager() {
               <img
                 src={img.imageWithName}
                 alt="Image With Name"
-                className="w-full h-24 object-contain rounded shadow invert"
+                className="w-full h-24 object-contain rounded shadow"
               />
               <p>
                 Link :{" "}
@@ -246,6 +287,7 @@ export default function SliderManager() {
               <div className="flex space-x-4">
                 <button
                   onClick={() => {
+                    window.scrollTo(0, 0);
                     setEditImageId(img._id);
                     setLink(img.link);
                     setPreview1(img.image);

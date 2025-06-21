@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { HiPencil } from "react-icons/hi2";
 import { MdDelete } from "react-icons/md";
 import { deleteHotel, getAllHotels } from "../api/hotelApi";
+import toast from "react-hot-toast";
 
 const AllHotels = () => {
   const [hotels, setHotels] = useState([]);
@@ -21,10 +22,12 @@ const AllHotels = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this hotel?")) return;
     try {
-      await deleteHotel(id)
+      await deleteHotel(id);
+      toast.success("Hotel deleted successfully", { duration: 5000 });
       fetchHotels(); // Refresh list
     } catch (err) {
       console.error("Error deleting hotel:", err);
+      toast.error("Error in hotel deleting", { duration: 5000 });
     }
   };
 
@@ -81,7 +84,7 @@ const AllHotels = () => {
                 <div className="flex justify-between mt-4">
                   <button
                     onClick={() =>
-                      navigate(`/hotelpage/edit-hotel/${hotel._id}`)
+                      navigate(`/admin/hotelpage/edit-hotel/${hotel._id}`)
                     }
                     className="text-green-500 hover:text-green-700 bg-green-100 p-2 rounded-md transition"
                   >

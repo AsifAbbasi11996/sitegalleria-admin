@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../api/adminUserApi";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -25,12 +26,14 @@ export default function Login() {
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("adminToken", response.data.token);
       localStorage.setItem("adminUsername", response.data.admin.username);
+      toast.success(`${response.data.admin.username} login successfully`, { duration: 5000 })
       navigate("/admin/navbar/logo");
     } catch (err) {
       console.error("Login failed", err);
       const message =
         err.response?.data?.message || "Invalid username/email or password";
       setError(message);
+      toast.error(message, { duration: 5000 })
     }
   };
 

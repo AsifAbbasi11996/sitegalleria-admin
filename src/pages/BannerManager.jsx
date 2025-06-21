@@ -8,6 +8,7 @@ import {
 import { CloudUpload } from "lucide-react";
 import { HiPencil } from "react-icons/hi2";
 import { MdDelete } from "react-icons/md";
+import toast from "react-hot-toast";
 
 const BannerManager = () => {
   const [heading, setHeading] = useState("");
@@ -48,15 +49,18 @@ const BannerManager = () => {
     try {
       if (editId) {
         await updateBanner(editId, formData);
+        toast.success("Banner updated successfully", { duration: 5000 });
         setMessage("Banner updated successfully ✅");
       } else {
         await addBanner(formData);
+        toast.success("Banner added successfully", { duration: 5000 });
         setMessage("Banner added successfully ✅");
       }
       resetForm();
       fetchBanners();
     } catch (error) {
       console.error("Error submitting form:", error);
+      toast.error("Error submitting form", { duration: 5000 });
       setMessage("Error occurred while submitting.");
     }
   };
@@ -71,6 +75,7 @@ const BannerManager = () => {
   };
 
   const handleEdit = (banner) => {
+    window.scrollTo(0, 0);
     setEditId(banner._id);
     setHeading(banner.heading);
     setDesc(banner.desc);
@@ -78,11 +83,16 @@ const BannerManager = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this banner?")) {
-      await deleteBanner(id);
-      setMessage("Banner deleted successfully ❌");
-      fetchBanners();
-      setTimeout(() => setMessage(""), 3000);
+    try {
+      if (window.confirm("Are you sure you want to delete this banner?")) {
+        await deleteBanner(id);
+        toast.success("Banner deleted successfully", { duration: 5000 });
+        setMessage("Banner deleted successfully ❌");
+        fetchBanners();
+        setTimeout(() => setMessage(""), 3000);
+      }
+    } catch (error) {
+      toast.error("Error deleting banner", { duration: 5000 });
     }
   };
 

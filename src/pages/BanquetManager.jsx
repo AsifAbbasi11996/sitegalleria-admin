@@ -8,6 +8,7 @@ import {
 import { CloudUpload } from "lucide-react";
 import { MdDelete } from "react-icons/md";
 import { HiPencil } from "react-icons/hi2";
+import toast from "react-hot-toast";
 
 const BanquetManager = () => {
   const [banquets, setBanquets] = useState([]);
@@ -33,7 +34,7 @@ const BanquetManager = () => {
   // Cleanup preview URL when component unmounts
   useEffect(() => {
     return () => {
-      if (preview && preview.startsWith('blob:')) {
+      if (preview && preview.startsWith("blob:")) {
         URL.revokeObjectURL(preview);
       }
     };
@@ -44,11 +45,11 @@ const BanquetManager = () => {
     if (name === "image") {
       const file = files[0];
       setFormData({ ...formData, image: file });
-      
+
       // Create preview URL for the selected file
       if (file) {
         // Clean up previous preview URL if it exists
-        if (preview && preview.startsWith('blob:')) {
+        if (preview && preview.startsWith("blob:")) {
           URL.revokeObjectURL(preview);
         }
         const previewUrl = URL.createObjectURL(file);
@@ -85,7 +86,7 @@ const BanquetManager = () => {
       features: [""],
       image: null,
     });
-    if (preview && preview.startsWith('blob:')) {
+    if (preview && preview.startsWith("blob:")) {
       URL.revokeObjectURL(preview);
     }
     setPreview(null);
@@ -105,18 +106,22 @@ const BanquetManager = () => {
     try {
       if (editingBanquetId) {
         await updateBanquet(editingBanquetId, payload);
+        toast.success("Banquet updated successfully", { duration: 5000 });
       } else {
         await addBanquet(payload);
+        toast.success("Banquest added successfully", { duration: 5000 });
       }
 
       resetForm();
       getBanquets();
     } catch (err) {
       console.error("Error submitting form:", err);
+      toast.error("Error in submitting form", { duration: 5000 });
     }
   };
 
   const handleEdit = (banquet) => {
+    window.scrollTo(0, 0);
     seteditingBanquetId(banquet._id);
     setFormData({
       title: banquet.title,
@@ -126,16 +131,21 @@ const BanquetManager = () => {
       image: banquet.image,
     });
     // Clean up previous preview URL if it exists
-    if (preview && preview.startsWith('blob:')) {
+    if (preview && preview.startsWith("blob:")) {
       URL.revokeObjectURL(preview);
     }
     setPreview(banquet.image);
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this banquet?')) {
-      await deleteBanquet(id);
-      getBanquets();
+    try {
+      if (window.confirm("Are you sure you want to delete this banquet?")) {
+        await deleteBanquet(id);
+        toast.success("Banquet deleted successfully", { duration: 5000 });
+        getBanquets();
+      }
+    } catch (error) {
+      toast.error("Banquet not deleted", { duration: 5000 });
     }
   };
 
@@ -159,10 +169,7 @@ const BanquetManager = () => {
         )}
       </div>
 
-      <form
-        onSubmit={handleSubmit}
-        className="px-4 pb-8 mb-6 space-y-4"
-      >
+      <form onSubmit={handleSubmit} className="px-4 pb-8 mb-6 space-y-4">
         <div className="flex sm:flex-row flex-col sm:gap-6 gap-3">
           <input
             type="text"
@@ -231,11 +238,11 @@ const BanquetManager = () => {
           className="text-[#b2b2b2] border-2 border-dashed border-gray-300 p-3 rounded-xl cursor-pointer md:w-52 md:h-52 w-40 h-40 flex items-center justify-center flex-col transition hover:border-blue-500 group"
         >
           {preview ? (
-              <img
-                src={preview}
-                alt="Preview"
-                className="w-full h-full object-cover rounded-lg"
-              />
+            <img
+              src={preview}
+              alt="Preview"
+              className="w-full h-full object-cover rounded-lg"
+            />
           ) : (
             <>
               <CloudUpload size={30} className="text-blue-500 mb-2" />
@@ -255,7 +262,7 @@ const BanquetManager = () => {
             className="hidden"
           />
         </label>
-        
+
         <div className="flex gap-3">
           <button
             type="submit"
@@ -311,11 +318,14 @@ const BanquetManager = () => {
                   </button>
                 </div>
               </div>
-              
+
               <p className="text-sm text-gray-500 mb-3">
-                Path: <span className="font-mono bg-gray-100 px-1 rounded">{banquet.path}</span>
+                Path:{" "}
+                <span className="font-mono bg-gray-100 px-1 rounded">
+                  {banquet.path}
+                </span>
               </p>
-              
+
               {banquet.image && (
                 <img
                   src={banquet.image}
@@ -323,16 +333,19 @@ const BanquetManager = () => {
                   className="w-full lg:h-40 h-56 object-cover mb-3 rounded"
                 />
               )}
-              
+
               <p className="text-gray-700 mb-3 text-sm">
                 {banquet.description}
               </p>
-              
+
               <div>
                 <p className="font-medium text-gray-800 mb-2">Features:</p>
                 <ul className="space-y-1">
                   {banquet.features.map((feature, index) => (
-                    <li key={index} className="text-sm text-gray-600 flex items-center">
+                    <li
+                      key={index}
+                      className="text-sm text-gray-600 flex items-center"
+                    >
                       <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span>
                       {feature}
                     </li>

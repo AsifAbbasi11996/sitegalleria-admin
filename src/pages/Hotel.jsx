@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { deleteHotel, getAllHotels } from "../api/homehotelApi";
 import { HiPencil } from "react-icons/hi2";
 import { MdDelete } from "react-icons/md";
+import toast from "react-hot-toast";
 
 const Hotel = () => {
   const [hotels, setHotels] = useState([]);
@@ -11,8 +12,7 @@ const Hotel = () => {
   const fetchHotels = async () => {
     try {
       const res = await getAllHotels();
-      setHotels(res.data); // ✅ FIX: access the actual data
-      console.log(res.data);
+      setHotels(res.data);
     } catch (error) {
       console.error("Failed to fetch hotels:", error);
     }
@@ -23,9 +23,14 @@ const Hotel = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this hotel?")) {
-      await deleteHotel(id);
-      fetchHotels();
+    try {
+      if (window.confirm("Are you sure you want to delete this hotel?")) {
+        await deleteHotel(id);
+        toast.success("Hotel deleted successfully", { duration: 5000 });
+        fetchHotels();
+      }
+    } catch (error) {
+      toast.error("Error deleting hotel", { duration: 5000 });
     }
   };
 
@@ -34,7 +39,7 @@ const Hotel = () => {
       <div className="flex justify-between items-center mb-6">
         <h1 className="md:text-2xl text-xl font-bold">Hotels</h1>
         <button
-          onClick={() => navigate("/homepage/hotels/add")}
+          onClick={() => navigate("/admin/homepage/hotels/add")}
           className="bg-blue-600 text-white px-6 py-2 md:text-base text-sm rounded hover:bg-blue-700"
         >
           Add Hotel
@@ -70,18 +75,19 @@ const Hotel = () => {
                     <img
                       src={hotel.content.logo}
                       alt="Logo"
-                      className="w-20 h-20 object-cover rounded-full border invert"
+                      className="w-20 h-20 object-contain rounded-full"
                     />
                   )}
                   <h2 className="md:text-base text-sm line-clamp-5">
-                    {hotel.content?.description ||
-                      "No Description"}
+                    {hotel.content?.description || "No Description"}
                   </h2>
                 </div>
 
                 <div className="flex gap-2">
                   <button
-                    onClick={() => navigate(`/homepage/hotels/edit/${hotel._id}`)}
+                    onClick={() =>
+                      navigate(`/admin/homepage/hotels/edit/${hotel._id}`)
+                    }
                     className="bg-green-100 text-green-500 hover:text-green-700 p-2 rounded-md cursor-pointer"
                   >
                     <HiPencil size={20} />

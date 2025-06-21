@@ -8,6 +8,7 @@ import {
   updateSlider,
   deleteSlider,
 } from "../api/homeApi";
+import toast from "react-hot-toast";
 
 const HomeSlider = () => {
   const [sliderImage, setSliderImage] = useState(null);
@@ -50,9 +51,11 @@ const HomeSlider = () => {
     try {
       if (editId) {
         await updateSlider(editId, formData);
+        toast.success("Slider updated successfully", { duration: 5000 });
         setSuccessMsg("Slider updated successfully ✅");
       } else {
         await addSlider(formData);
+        toast.success("Slider added successfully", { duration: 5000 });
         setSuccessMsg("Slider added successfully ✅");
       }
 
@@ -64,10 +67,12 @@ const HomeSlider = () => {
       setTimeout(() => setSuccessMsg(""), 3000);
     } catch (err) {
       console.error("Error submitting form:", err.message);
+      toast.error("Error submitting form", { duration: 5000 });
     }
   };
 
   const handleEdit = (slider) => {
+    window.scrollTo(0, 0);
     setEditId(slider._id);
     setText(slider.text || "");
     setPreview(slider.slider);
@@ -77,11 +82,13 @@ const HomeSlider = () => {
     if (window.confirm("Are you sure you want to delete this slider?")) {
       try {
         await deleteSlider(id);
+        toast.success("Slider deleted successfully", { duration: 5000 });
         setSuccessMsg("Slider deleted successfully ❌");
         fetchSliders();
         setTimeout(() => setSuccessMsg(""), 3000);
       } catch (err) {
         console.error("Error deleting slider:", err.message);
+        toast.error("Error deleting slider", { duration: 5000 });
       }
     }
   };
@@ -92,7 +99,7 @@ const HomeSlider = () => {
 
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col md:flex-row items-center md:items-center gap-4 flex-wrap p-4"
+        className="max-w-6xl flex flex-col md:flex-row items-center md:items-center gap-4 flex-wrap sm:p-4"
       >
         <div>
           <label
@@ -109,7 +116,9 @@ const HomeSlider = () => {
               <>
                 <CloudUpload size={30} className="text-blue-500 mb-2" />
                 <p className="md:text-base text-xs">Upload Slider</p>
-                 <p className="uppercase md:text-[12px] text-[10px] text-center">svg, png, jpeg, webp, avif</p>
+                <p className="uppercase md:text-[12px] text-[10px] text-center">
+                  svg, png, jpeg, webp, avif
+                </p>
               </>
             )}
             <input
@@ -130,24 +139,23 @@ const HomeSlider = () => {
             >
               Slider Text
             </label>
-            <input
+            <textarea
               id="sliderText"
               type="text"
               placeholder="Enter slider text"
-              className="border border-gray-300 rounded-xl px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 w-80 transition"
+              className="border border-gray-300 rounded-xl px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 min-w-80 md:min-w-[600px] h-32 transition"
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
           </div>
-       
 
-        <button
-          type="submit"
-          className="px-5 py-2  bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl shadow transition"
-        >
-          {editId ? "Update Slide" : "Add Slide"}
-        </button>
-         </div>
+          <button
+            type="submit"
+            className="px-5 py-2  bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl shadow transition"
+          >
+            {editId ? "Update Slide" : "Add Slide"}
+          </button>
+        </div>
       </form>
 
       {successMsg && (
@@ -158,7 +166,10 @@ const HomeSlider = () => {
 
       <div className="mt-6 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 grid-cols-1 gap-4">
         {sliders.map((slider) => (
-          <div key={slider._id} className="border border-[#e4e4e4] p-3 rounded relative">
+          <div
+            key={slider._id}
+            className="border border-[#e4e4e4] p-3 rounded relative"
+          >
             <img
               src={slider.slider}
               alt="Slider"
@@ -178,7 +189,7 @@ const HomeSlider = () => {
                 onClick={() => handleDelete(slider._id)}
                 className="text-red-500 hover:text-red-700 bg-red-100 p-2 rounded-md cursor-pointer"
               >
-                <MdDelete size={20}/>
+                <MdDelete size={20} />
               </button>
             </div>
           </div>

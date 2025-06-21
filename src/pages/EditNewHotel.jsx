@@ -4,6 +4,7 @@ import { MdClose, MdDelete } from "react-icons/md";
 import { CloudUpload } from "lucide-react";
 import { getDestinations } from "../api/api";
 import { getHotelById, updateHotel } from "../api/hotelApi";
+import toast from "react-hot-toast";
 
 const EditNewHotel = () => {
   const { id } = useParams();
@@ -139,17 +140,16 @@ const EditNewHotel = () => {
 
     try {
       await updateHotel(id, formData);
-      alert("Hotel updated successfully");
-      navigate("/hotelpage/all-hotels");
+      toast.success("Hotel updated successfully", { duration: 5000 });
+      navigate("/admin/hotelpage/all-hotels");
     } catch (err) {
       console.error("Error updating hotel:", err);
-      alert("Failed to update hotel.");
+      toast.error("Failed to update hotel.", { duration: 5000 });
     }
   };
 
   return (
     <form
-      onSubmit={handleSubmit}
       className="max-w-7xl mx-auto lg:p-6 p-2 bg-white shadow rounded space-y-6"
     >
       <h2 className="md:text-2xl text-xl font-bold text-center">Edit Hotel</h2>
@@ -199,7 +199,9 @@ const EditNewHotel = () => {
       </div>
 
       <div className="mb-4">
-        <label className="block font-medium mb-1 sm:text-base text-sm">Description Paragraphs</label>
+        <label className="block font-medium mb-1 sm:text-base text-sm">
+          Description Paragraphs
+        </label>
         {form.descriptionParagraphs.map((para, index) => (
           <div key={index} className="flex gap-2 items-start mb-2">
             <textarea
@@ -275,7 +277,9 @@ const EditNewHotel = () => {
 
       {/* Images Section */}
       <div>
-        <label className="block font-semibold mb-2 sm:text-base text-sm">Hotel Images</label>
+        <label className="block font-semibold mb-2 sm:text-base text-sm">
+          Hotel Images
+        </label>
 
         {/* Existing images */}
         {existingImages.length > 0 && (
@@ -341,12 +345,14 @@ const EditNewHotel = () => {
         </label>
       </div>
 
-      <button
-        type="submit"
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-      >
-        Save Changes
-      </button>
+      <div className="flex items-center gap-4">
+        <button
+          onClick={handleSubmit}
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 md:text-base text-sm"
+        >
+          Save Changes
+        </button>
+      </div>
     </form>
   );
 };

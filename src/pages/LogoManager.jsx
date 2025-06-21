@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
-import {
-  getLogo,
-  addLogo,
-  updateLogo,
-  deleteLogo,
-} from "../api/logoApi"; // adjust path if necessary
+import { getLogo, addLogo, updateLogo, deleteLogo } from "../api/logoApi"; // adjust path if necessary
 import { CloudUpload } from "lucide-react";
 import { HiPencil } from "react-icons/hi2";
 import { MdDelete } from "react-icons/md";
+import toast from "react-hot-toast";
 
 const LogoManager = () => {
   const [logoFile, setLogoFile] = useState(null);
@@ -49,15 +45,18 @@ const LogoManager = () => {
     try {
       if (editId) {
         await updateLogo(editId, formData);
+        toast.success("Logo updated successfully", { duration: 5000 });
         setMessage("Logo updated successfully ✅");
       } else {
         await addLogo(formData);
+        toast.success("Logo added successfully", { duration: 5000 });
         setMessage("Logo added successfully ✅");
       }
       resetForm();
       fetchLogos();
     } catch (error) {
       console.error("Error submitting form:", error);
+      toast.error("Error submitting form", { duration: 5000 });
       setMessage("Error occurred while submitting.");
     }
   };
@@ -70,22 +69,30 @@ const LogoManager = () => {
   };
 
   const handleEdit = (logo) => {
+    window.scrollTo(0, 0);
     setEditId(logo._id);
     setPreview(logo.logo);
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this logo?")) {
-      await deleteLogo(id);
-      setMessage("Logo deleted successfully ❌");
-      fetchLogos();
-      setTimeout(() => setMessage(""), 3000);
+    try {
+      if (window.confirm("Are you sure you want to delete this logo?")) {
+        await deleteLogo(id);
+        toast.success("Logo deleted successfully", { duration: 5000 });
+        setMessage("Logo deleted successfully ❌");
+        fetchLogos();
+        setTimeout(() => setMessage(""), 3000);
+      }
+    } catch (error) {
+      toast.error("Error deleting logoy", { duration: 5000 });
     }
   };
 
   return (
     <div className="md:p-6 max-w-screen-md mx-auto">
-      <h2 className="md:text-2xl text-xl font-bold mb-4 text-gray-800">Manage Logo</h2>
+      <h2 className="md:text-2xl text-xl font-bold mb-4 text-gray-800">
+        Manage Logo
+      </h2>
 
       <form onSubmit={handleSubmit} className="grid gap-4 mb-8">
         <label
@@ -120,7 +127,9 @@ const LogoManager = () => {
         </button>
       </form>
 
-      {message && <p className="text-green-600 font-semibold mb-4">{message}</p>}
+      {message && (
+        <p className="text-green-600 font-semibold mb-4">{message}</p>
+      )}
 
       <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
         {logos.map((logo) => (

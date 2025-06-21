@@ -3,6 +3,7 @@ import { CloudUpload } from "lucide-react";
 import { MdClose, MdDelete } from "react-icons/md";
 import { getDestinations } from "../api/api";
 import { addHotel } from "../api/hotelApi";
+import toast from "react-hot-toast";
 
 const AddNewHotel = () => {
   const [formData, setFormData] = useState({
@@ -92,10 +93,10 @@ const AddNewHotel = () => {
 
     try {
       await addHotel(data);
-      alert("Hotel created successfully!");
+      toast.success("Hotel added successfully!", {duration: 5000});
     } catch (error) {
       console.error(error);
-      alert("Error creating hotel");
+      toast.error("Error adding hotel", {duration: 5000});
     }
   };
 
